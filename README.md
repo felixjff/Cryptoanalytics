@@ -3,6 +3,7 @@ Web application that provides different data visualizations and analytics for se
 
 
 ### Folder structure
+```
 ├── examples
 │   ├── storage (put your dummy data here)
 │   └──
@@ -17,3 +18,5 @@ Web application that provides different data visualizations and analytics for se
 ├── .gitignore
 ├── package.json
 └── README.md
+```
+
