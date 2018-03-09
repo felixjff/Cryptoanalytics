@@ -4,9 +4,10 @@ Web application that provides different data visualizations and analytics for se
 
 ### Folder structure
 ```
+├── data (put your dummy data here)
 ├── examples
-│   ├── storage (put your dummy data here)
-│   └──
+│   ├── foo 
+│   └── bar
 ├── src
 │   ├── utils
 │   ├── *.js (modules/classes)
