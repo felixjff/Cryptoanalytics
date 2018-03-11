@@ -79,8 +79,6 @@ var ToolTip=React.createClass({
             y= position.y;
             visibility="visible";
 
-            //console.log(x,y);
-
             if(y>height){
                 transform='translate(' + (x-width/2) + ',' + (y-height-20) + ')';
                 transformArrow='translate('+(width/2-20)+','+(height-2)+')';
@@ -101,7 +99,7 @@ var ToolTip=React.createClass({
                          fill="#6391da" opacity=".9" visibility={visibility}/>
                 <text is visibility={visibility} transform={transformText}>
                     <tspan is x="0" text-anchor="middle" font-size="15px" fill="#ffffff">{this.props.tooltip.data.key}</tspan>
-                    <tspan is x="0" text-anchor="middle" dy="25" font-size="15px" fill="#a9f3ff">{"1 Bitcoin = " +this.props.tooltip.data.value + " USD"}</tspan>
+                    <tspan is x="0" text-anchor="middle" dy="25" font-size="12px" fill="#a9f3ff">{"1 Bitcoin = " +this.props.tooltip.data.value + " USD"}</tspan>
                 </text>
             </g>
         );
@@ -128,16 +126,16 @@ var Dots=React.createClass({
         var _self=this;
 
         //remove last & first point
-        var data=this.props.data.splice(1);
+        var data = this.props.data.splice(1);
         data.pop();
-
+        
         //Use .map to create a circle element for the desired data points
         var circles=data.map(function(d,i){
             return (<circle className="dot" r="7" 
                         cx={_self.props.x(d.date)} cy={_self.props.y(d.price)} fill="#7dc7f4"
                         stroke="#3f5175" strokeWidth="5px" key={i}
                         onMouseOver={_self.props.showToolTip} onMouseOut={_self.props.hideToolTip}
-                        data-key={d3.time.format("%b %e")(d.date)} data-value={d.price}/>)
+                        data-key={d3.time.format("%m-%d-%Y")(d.date)} data-value={d.price}/>)
         });
 
         return(
@@ -155,12 +153,14 @@ var LineChart=React.createClass({
     propTypes: {
         width: React.PropTypes.number,
         height: React.PropTypes.number,
+        crypto: React.PropTypes.string,
         chartId: React.PropTypes.string
     },
 
     /*Assign default values for properties*/
     getDefaultProps: function() {
         return {
+            crypto: "BTC",
             width: 800,
             height: 300,
             chartId: 'v1_chart'
@@ -171,31 +171,40 @@ var LineChart=React.createClass({
     getInitialState:function(){
         return {
             tooltip:{ display:false,data:{key:'',value:''}},
-            width: this.props.width
+            width: this.props.width,
         };
     },
     
     /*Initialize "render" and define specific characteristics of the SVG previous to rendering*/
     render:function(){
+        let {crypto} = this.props
+        console.log(crypto)
+
         /*Dummy Data -> Must be improved to use data depending on crypto selection*/
+        if (crypto == 'BTC') {   
         var data=[
-            {day:'02-11-2016',price:180},
-            {day:'02-12-2016',price:250},
-            {day:'02-13-2016',price:150},
-            {day:'02-14-2016',price:496},
-            {day:'02-15-2016',price:140},
-            {day:'02-16-2016',price:380},
-            {day:'02-17-2016',price:100},
-            {day:'02-18-2016',price:150}
-        ];
-        
+            {day:'08-12-2012',price:11},
+            {day:'01-19-2013',price:45},
+            {day:'02-17-2016',price:400},
+            {day:'09-04-2016',price:614},
+            {day:'02-03-2017',price:1200},
+            {day:'07-10-2017',price:2720},
+            {day:'09-15-2017',price:3500},
+            {day:'11-02-2017',price:6880},
+            {day:'12-21-2017',price:17100},
+            {day:'02-07-2018',price:7900},
+            {day:'04-04-2018',price:11500}
+        ]; }
+
         /*Define borders of SVG*/
         var margin = {top: 5, right: 50, bottom: 20, left: 50},
             w = this.state.width - (margin.left + margin.right),
             h = this.props.height - (margin.top + margin.bottom);
         
-        /*Transform date to specific time format*/    
+        /*Transform Epoch date to specific time format*/
+
         var parseDate = d3.time.format("%m-%d-%Y").parse;
+
         data.forEach(function (d) {
             d.date = parseDate(d.day);
         });
@@ -214,6 +223,7 @@ var LineChart=React.createClass({
             .range([h, 0]);
 
         /*Define D3 functions to set up x- and y-axis*/ 
+        console.log(data[1].date.getMonth())
         var yAxis = d3.svg.axis()
             .scale(y)
             .orient('left')
@@ -226,7 +236,7 @@ var LineChart=React.createClass({
                     return d.date;
             }).splice(1))
             .ticks(4);
-
+        
         /*Define D3 functionts set up a grid (for better visualization)*/     
         var xGrid = d3.svg.axis()
             .scale(x)
@@ -249,7 +259,7 @@ var LineChart=React.createClass({
             .y(function (d) {
                 return y(d.price);
             }).interpolate('cardinal');
-
+            
         /*Position line SVG away from margins (useful for adding axes)*/ 
         var transform='translate(' + margin.left + ',' + margin.top + ')';
  
@@ -266,7 +276,7 @@ var LineChart=React.createClass({
 
                         {/*Define axis with properties as specified above*/} 
                         <Axis h={h} axis={yAxis} axisType="y" />
-                        <Axis h={h} axis={xAxis} axisType="x"/>
+                        {/*<Axis h={h} axis={xAxis} axisType="x"/>*/}
 
                         {/*Define path with properties as specified above*/} 
                         <path className="line shadow" d={line(data)} strokeLinecap="round"/>

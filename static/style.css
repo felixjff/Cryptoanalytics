@@ -33,7 +33,7 @@ h3{
 .line {
     fill: none;
     stroke: #7dc7f4;
-    stroke-width: 5px;
+    stroke-width: 3px;
 }
 
 .axis{
@@ -50,7 +50,7 @@ h3{
 }
 
 .axis text {
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .y-grid .tick{
