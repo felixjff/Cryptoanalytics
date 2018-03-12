@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Heatmap of arbitrage points</title>
+    <script src="d3/d3.js"></script>
+    <style>
+      rect.bordered {
+        stroke: #4376B4;
+        stroke-width:2px;   
+      }
+    </style>
+  </head>
+  <body>
+    <div id="heatmap"></div>
+    <div id="time_choice"></div> <!-- if we are going to implement time here-->
+    <div id="exchange_choice"></div>
+
+    <script>
+      var margins = { top: 50, right: 0, bottom: 100, left: 50},
+          width = 500 - margin.left - margin.right,
+          height = 500 - margin.top - margin.bottom,
+          gridSize = Math.floor(width / 5),
+          legendElementWidth = gridSize*1.5,
+          buckets = 7,
+          bucket_colors = ["#d73027","#f46d43","#fdae61","#fee08b","#ffffbf","#d9ef8b","#a6d96a","#66bd63","#1a9850"]
+          exchanges_buy = ["bitboy1", "bittyguy2", "big_buyer3", "exchanging_big4", "bitconnect5"]
+          exchanges_sell = ["bitboy1", "bittyguy2", "big_buyer3", "exchanging_big4", "bitconnect5"] //could also be different right?
+          data_set = ["test_data.csv"]; // With pre-processing, could just load the data directly from a json/csv file
+          // exchanges_buy = shouldbeloaded
+          // exchanges_sell = shouldbeloaded
+
+
+      // var buy_sell1 = [3,3.1]
+      // var buy_sell2 = [2.9,3]
+      // var buy_sell3 = [3,2.9]
+      // var buy_sell4 = [2.5,3,6]
+      // var buy_sell5 = [3.4,2.7]
+
+
+
+      // function get_difference(exchange_sell, exchange_buy {
+      //     return exchange_sell - exchange_buy;
+      // }
+
+      // var scale = d3.scaleLinear()
+      //   .domain([1, 5])
+      //   .range([0, 200]); // Pixel space
+      var svg = d3.select("#chart").append("svg")
+        .attr("width",  width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      var exchange_buy_labels = svg.selectAll(".exchange_buy_labels")
+        .data(exchange_buy)
+        .enter().append("text")
+        .text(function (d) { return d; })
+
+      var exchange_sell_labels = svg.selectAll(".exchange_sell_labels")
+        .data(exchange_sell)
+        .enter().append("text")
+        .text(function (d) { return d; })
+
+      var heatmapChart = function(heatmap_data) {
+        d3.csv(heatmap_data,
+        function(d) {
+          return {
+            buy: +d.buy,
+            sell: +d.sell,
+            value: +d.value
+          };
+        },
+        function(error, data) {
+          var colorScale = d3.scale.quantile()
+            .domain([0, buckets - 1, d3.max(data, function (d) { return d.value; })]) // Might want to take a logarithm or other scale?
+            .range(colors);
+
+          var arbitrages = svg.selectAll(".buy")
+
+          arbitrages.enter().append("rect")
+            .attr("x", function(d) { return (d.hour - 1) * gridSize; })
+            .attr("y", function(d) { return (d.day - 1) * gridSize; })
+            .attr("width", gridSize)
+            .attr("height", gridSize)
+            // .style("fill", colors[0]); have it filled from the start?
+
+          arbitrages.exit().remove();
+
+          var legend = svg.selectAll(".legend")
+            .data([0].concat(colorScale.quantiles()), function(d) { return d; });
+
+          legend.enter().append("g")
+              .attr("class", "legend");
+
+          legend.exit().remove();
+
+
+      // function render(data, color){
+      //   // Bind data
+      //   var rects = svg.selectAll("rect").data(data);
+        
+      //   // Enter
+      //   rects.enter().append("rect");
+      //   // Update
+      //   rects
+      //     .attr("x", scale)
+      //     .attr("y", 50)
+      //     .attr("width",  20)
+      //     .attr("height", 20)
+      //     .attr("fill", color);
+      // }
+      // render([1, 2, 2.5], "red");
+      // render([1, 2, 3, 4, 5], "blue");
+    </script>
+
+  </body>
+</html>
