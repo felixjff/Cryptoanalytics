@@ -7,6 +7,7 @@ test/election.html
 data/*
 !/data/world-50m.json
 !/data/bitcoin_trx_nr.json
+src/mapchart.js
 
 # Logs
 logs
