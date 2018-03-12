@@ -4,9 +4,9 @@
 .csv
 .ipynb_checkpoints/
 test/election.html
-data/
+data/*
 !/data/world-50m.json
-!/data/bitcoin_trx_nr_json
+!/data/bitcoin_trx_nr.json
 
 # Logs
 logs
