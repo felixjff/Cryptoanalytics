@@ -1,0 +1,667 @@
+{
+   "Date": "2017-03-09",
+   "Children": [
+      {
+         "Currency": "Dash",
+         "MarketCap": 302128000
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 175497000
+      },
+      {
+         "Currency": "NEO",
+         "MarketCap": 5813300
+      },
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 188704000
+      },
+      {
+         "Currency": "Ripple",
+         "MarketCap": 242570000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 1490500000
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 18640900000
+      },
+      {
+         "Currency": "Stellar",
+         "MarketCap": 12880500
+      }
+   ], 
+   "Date": "2017-03-10",
+   "Children": [
+      {
+         "Currency": "Monero",
+         "MarketCap": 183864000
+      },
+      {
+         "Currency": "Stellar",
+         "MarketCap": 12464400
+      },
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 191858000
+      },
+      {
+         "Currency": "Ripple",
+         "MarketCap": 242488000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 1589640000
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 19275300000
+      },
+      {
+         "Currency": "Dash",
+         "MarketCap": 365561000
+      },
+      {
+         "Currency": "NEO",
+         "MarketCap": 6605350
+      }
+   ],
+   "Date": "2017-03-11",
+   "Children": [
+      {
+         "Currency": "Stellar",
+         "MarketCap": 12106000
+      },
+      {
+         "Currency": "Dash",
+         "MarketCap": 360708000
+      },
+      {
+         "Currency": "Ripple",
+         "MarketCap": 232266000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 1736630000
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 18093700000
+      },
+      {
+         "Currency": "NEO",
+         "MarketCap": 6570150
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 184883000
+      },
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 188428000
+      }
+   ],
+   "Date": "2017-03-12",
+   "Children": [
+      {
+         "Currency": "NEO",
+         "MarketCap": 7110850
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 207508000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 1924660000
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 19073300000
+      },
+      {
+         "Currency": "Dash",
+         "MarketCap": 520543000
+      },
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 189874000
+      },
+      {
+         "Currency": "Stellar",
+         "MarketCap": 12548100
+      },
+      {
+         "Currency": "Ripple",
+         "MarketCap": 231721000
+      }
+   ],
+   "Date": "2017-03-13",
+   "Children": [
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 192979000
+      },
+      {
+         "Currency": "Stellar",
+         "MarketCap": 12990500
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 19807700000
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 236958000
+      },
+      {
+         "Currency": "Dash",
+         "MarketCap": 551120000
+      },
+      {
+         "Currency": "Ripple",
+         "MarketCap": 233853000
+      },
+      {
+         "Currency": "NEO",
+         "MarketCap": 7039950
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 2108300000
+      }
+   ],
+   "Date": "2017-03-14",
+   "Children": [
+      {
+         "Currency": "Ripple",
+         "MarketCap": 236634000
+      },
+      {
+         "Currency": "NEO",
+         "MarketCap": 6849300
+      },
+      {
+         "Currency": "Stellar",
+         "MarketCap": 13732800
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 255287000
+      },
+      {
+         "Currency": "Dash",
+         "MarketCap": 534395000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 2563700000
+      },
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 209412000
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 19978200000
+      }
+   ],
+   "Date": "2017-03-15",
+   "Children": [
+      {
+         "Currency": "Ripple",
+         "MarketCap": 237552000
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 20110400000
+      },
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 203099000
+      },
+      {
+         "Currency": "NEO",
+         "MarketCap": 6684950
+      },
+      {
+         "Currency": "Stellar",
+         "MarketCap": 13401600
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 251092000
+      },
+      {
+         "Currency": "Dash",
+         "MarketCap": 638133000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 2571160000
+      }
+   ],
+   "Date": "2017-03-16",
+   "Children": [
+      {
+         "Currency": "Dash",
+         "MarketCap": 683888000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 3174750000
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 20293700000
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 268957000
+      },
+      {
+         "Currency": "Stellar",
+         "MarketCap": 13580400
+      },
+      {
+         "Currency": "NEO",
+         "MarketCap": 6438650
+      },
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 208204000
+      },
+      {
+         "Currency": "Ripple",
+         "MarketCap": 235622000
+      }
+   ],
+   "Date": "2017-03-17",
+   "Children": [
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 212582000
+      },
+      {
+         "Currency": "Ripple",
+         "MarketCap": 239193000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 4125480000
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 19141800000
+      },
+      {
+         "Currency": "NEO",
+         "MarketCap": 6566200
+      },
+      {
+         "Currency": "Stellar",
+         "MarketCap": 13641400
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 318778000
+      },
+      {
+         "Currency": "Dash",
+         "MarketCap": 642049000
+      }
+   ],
+   "Date": "2017-03-18",
+   "Children": [
+      {
+         "Currency": "Dash",
+         "MarketCap": 724518000
+      },
+      {
+         "Currency": "Ripple",
+         "MarketCap": 229142000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 4211830000
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 17838700000
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 314731000
+      },
+      {
+         "Currency": "Stellar",
+         "MarketCap": 13693700
+      },
+      {
+         "Currency": "NEO",
+         "MarketCap": 7000300
+      },
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 202967000
+      }
+   ],
+   "Date": "2017-03-19",
+   "Children": [
+      {
+         "Currency": "NEO",
+         "MarketCap": 7950950
+      },
+      {
+         "Currency": "Ripple",
+         "MarketCap": 251511000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 3193600000
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 15846000000
+      },
+      {
+         "Currency": "Dash",
+         "MarketCap": 771412000
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 284253000
+      },
+      {
+         "Currency": "Stellar",
+         "MarketCap": 13102600
+      },
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 198801000
+      }
+   ],
+   "Date": "2017-03-20",
+   "Children": [
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 198555000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 4031270000
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 16829800000
+      },
+      {
+         "Currency": "NEO",
+         "MarketCap": 7872200
+      },
+      {
+         "Currency": "Ripple",
+         "MarketCap": 258208000
+      },
+      {
+         "Currency": "Dash",
+         "MarketCap": 776036000
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 329623000
+      },
+      {
+         "Currency": "Stellar",
+         "MarketCap": 13414400
+      }
+   ],
+   "Date": "2017-03-21",
+   "Children": [
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 202923000
+      },
+      {
+         "Currency": "Ripple",
+         "MarketCap": 261234000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 3913620000
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 17125600000
+      },
+      {
+         "Currency": "Dash",
+         "MarketCap": 717014000
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 320139000
+      },
+      {
+         "Currency": "Stellar",
+         "MarketCap": 13835800
+      },
+      {
+         "Currency": "NEO",
+         "MarketCap": 7698600
+      }
+   ],
+   "Date": "2017-03-22",
+   "Children": [
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 200521000
+      },
+      {
+         "Currency": "Ripple",
+         "MarketCap": 257915000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 3880120000
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 18187100000
+      },
+      {
+         "Currency": "NEO",
+         "MarketCap": 8247550
+      },
+      {
+         "Currency": "Stellar",
+         "MarketCap": 15530800
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 302815000
+      },
+      {
+         "Currency": "Dash",
+         "MarketCap": 686887000
+      }
+   ],
+   "Date": "2017-03-23",
+   "Children": [
+      {
+         "Currency": "NEO",
+         "MarketCap": 8659150
+      },
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 197783000
+      },
+      {
+         "Currency": "Ripple",
+         "MarketCap": 271965000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 3831310000
+      },
+      {
+         "Currency": "Dash",
+         "MarketCap": 727130000
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 303834000
+      },
+      {
+         "Currency": "Stellar",
+         "MarketCap": 14093500
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 17043400000
+      }
+   ],
+   "Date": "2017-03-24",
+   "Children": [
+      {
+         "Currency": "Stellar",
+         "MarketCap": 16279800
+      },
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 199924000
+      },
+      {
+         "Currency": "Ripple",
+         "MarketCap": 393620000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 3929230000
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 16857000000
+      },
+      {
+         "Currency": "Dash",
+         "MarketCap": 729578000
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 309519000
+      },
+      {
+         "Currency": "NEO",
+         "MarketCap": 8320600
+      }
+   ],
+   "Date": "2017-03-25",
+   "Children": [
+      {
+         "Currency": "NEO",
+         "MarketCap": 8347050
+      },
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 205034000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 4825700000
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 15204800000
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 298839000
+      },
+      {
+         "Currency": "Dash",
+         "MarketCap": 696738000
+      },
+      {
+         "Currency": "Stellar",
+         "MarketCap": 15006300
+      },
+      {
+         "Currency": "Ripple",
+         "MarketCap": 392674000
+      }
+   ],
+   "Date": "2017-03-26",
+   "Children": [
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 204723000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 4574540000
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 15814800000
+      },
+      {
+         "Currency": "NEO",
+         "MarketCap": 8363350
+      },
+      {
+         "Currency": "Ripple",
+         "MarketCap": 342448000
+      },
+      {
+         "Currency": "Dash",
+         "MarketCap": 677736000
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 285884000
+      },
+      {
+         "Currency": "Stellar",
+         "MarketCap": 14275300
+      }
+   ],
+   "Date": "2017-03-27",
+   "Children": [
+      {
+         "Currency": "Litecoin",
+         "MarketCap": 204793000
+      },
+      {
+         "Currency": "Ripple",
+         "MarketCap": 354514000
+      },
+      {
+         "Currency": "Ethereum",
+         "MarketCap": 4624990000
+      },
+      {
+         "Currency": "Bitcoin",
+         "MarketCap": 15785000000
+      },
+      {
+         "Currency": "Dash",
+         "MarketCap": 673078000
+      },
+      {
+         "Currency": "Monero",
+         "MarketCap": 280203000
+      },
+      {
+         "Currency": "Stellar",
+         "MarketCap": 14457100
+      },
+      {
+         "Currency": "NEO",
+         "MarketCap": 8058250
+      }
+   ]
+}
