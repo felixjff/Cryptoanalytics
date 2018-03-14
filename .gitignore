@@ -1,6 +1,14 @@
 # IDEs
 .vscode
 .idea
+.csv
+.ipynb_checkpoints/
+test/election.html
+data/*
+!/data/world-50m.json
+!/data/bitcoin_trx_nr.json
+!/data/bitcnew.json
+src/mapchart.js
 
 # Logs
 logs
