@@ -21,7 +21,7 @@
 
 
 <div id="WorldMapcontainer" style="position: relative; width: 1000px; height: 600px;">
-    <input id="slider" type="range" min="1362873600000" max="1363046400000" step="3" value="1362873600000">
+    <input id="slider" type="range" min="1429401600" max="1434499200" step="15" value="1429401600">
     <output id="output"></output>
 </div>
 
@@ -37,15 +37,17 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.min.js"></script>
 
-<script src="../data/datamaps.world.min.js"></script>
-<script src="../src/worldmap.js"></script>
+<script type="text/javascript" src="../data/datamaps.world.min.js"></script>
+<script type="text/javascript" src="../src/worldmap.js"></script>
 
 
 </body>
 <script>
     $('input[type="range"]').rangeslider();
     document.getElementById("slider").oninput = function () {
-        val_from_slider();
+        $.getJSON('../data/bitcnew.json', function (trx_data) {
+            val_from_slider('BTC', 'RUS', trx_data);
+        });
     };
 </script>
 

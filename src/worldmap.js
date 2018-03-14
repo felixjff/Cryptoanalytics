@@ -4,13 +4,13 @@ var WorldMapcontainer = new Datamap({
     geographyConfig: {
         popupOnHover: true,
         highlightOnHover: true,
-        borderColor: '#aaa',
+        borderColor: '#444',
         borderWidth: 0.5,
 
     },
     fills: {
-        defaultFill: "#336699",
-        authorHasTraveledTo: "#b3cce6"
+        defaultFill: "#ccc",
+        authorHasTraveledTo: "#336699"
     },
     data: {
         USA: {fillKey: "MktCap"},
@@ -22,7 +22,8 @@ var WorldMapcontainer = new Datamap({
     }
 });
 
-var colors = d3.scale.linear().domain([0, 159724601, 289724601]).range(['#ffffff', '#336699', '#112233']);
+
+var colors = d3.scale.linear().domain([0, 500, 1000]).range(['#ffffff', '#336699', '#112233']);
 
 //async data file loading
 // queue()
@@ -39,36 +40,284 @@ var colors = d3.scale.linear().domain([0, 159724601, 289724601]).range(['#ffffff
 // };
 
 
-d3.json("http://localhost:63343/Cryptoanalytics/data/bitcoin_trx_nr.json", function (trx_data) {
-    window.setInterval(function () {
-        WorldMapcontainer.updateChoropleth({
-            USA: colors(val_from_slider(), 'BTC', 'USA'),
-            // RUS: colors(ready(), 'BTC', 'RUS'),
-            // AUS: colors(ready(), 'BTC', 'AUS'),
-            // BRA: colors(ready(), 'BTC', 'BRA'),
-            // CAN: colors(ready(), 'BTC', 'CAN'),
-            // ZAF: colors(ready(), 'BTC', 'ZAF'),
+var epoch_mul = 0;
 
-        });
-    }, 500);
+var val_from_slider = function (currency, country, trx_data) {
+    if (epoch_mul == 15) {
+        window.clearInterval();
+    } else {
+        epoch_mul++;
+        console.log(epoch_mul);
+        var epoch = String(parseFloat(document.getElementById("slider").value) + 86400 * epoch_mul); //gets the oninput value
 
-    var epoch_mul = 0;
+        document.getElementById('output').innerHTML = new Date(parseInt(epoch) * 1000); //displays this value to the html page
 
-    function val_from_slider() {
-        if (epoch_mul == 15) {
-            window.clearInterval();
-        } else {
-            epoch_mul++;
-            console.log(epoch_mul);
-            var epoch = String(parseFloat(document.getElementById("slider").value) + 8640000000 * epoch_mul); //gets the oninput value
-            console.log(epoch);
-            document.getElementById('output').innerHTML = epoch; //displays this value to the html page
-            var cumVal = trx_data[epoch]["cum"];
-            console.log(cumVal);
-            setTimeout(1000);
-        }
+        var cumVal = trx_data[epoch][country];
 
-        return cumVal;
-
+        console.log(cumVal, country);
+        setTimeout(1000);
     }
+
+    return cumVal;
+};
+
+
+d3.json("http://localhost:63343/Cryptoanalytics/data/bitcnew.json", function (trx_data) {
+    window.setInterval(function () {
+
+            WorldMapcontainer.updateChoropleth({
+                AFG: colors(val_from_slider('BTC', 'AFG', trx_data), 'AFG'),
+ALA: colors(val_from_slider('BTC', 'ALA', trx_data), 'ALA'),
+ALB: colors(val_from_slider('BTC', 'ALB', trx_data), 'ALB'),
+DZA: colors(val_from_slider('BTC', 'DZA', trx_data), 'DZA'),
+ASM: colors(val_from_slider('BTC', 'ASM', trx_data), 'ASM'),
+AND: colors(val_from_slider('BTC', 'AND', trx_data), 'AND'),
+AGO: colors(val_from_slider('BTC', 'AGO', trx_data), 'AGO'),
+AIA: colors(val_from_slider('BTC', 'AIA', trx_data), 'AIA'),
+ATA: colors(val_from_slider('BTC', 'ATA', trx_data), 'ATA'),
+ATG: colors(val_from_slider('BTC', 'ATG', trx_data), 'ATG'),
+ARG: colors(val_from_slider('BTC', 'ARG', trx_data), 'ARG'),
+ARM: colors(val_from_slider('BTC', 'ARM', trx_data), 'ARM'),
+ABW: colors(val_from_slider('BTC', 'ABW', trx_data), 'ABW'),
+AUS: colors(val_from_slider('BTC', 'AUS', trx_data), 'AUS'),
+AUT: colors(val_from_slider('BTC', 'AUT', trx_data), 'AUT'),
+AZE: colors(val_from_slider('BTC', 'AZE', trx_data), 'AZE'),
+BHS: colors(val_from_slider('BTC', 'BHS', trx_data), 'BHS'),
+BHR: colors(val_from_slider('BTC', 'BHR', trx_data), 'BHR'),
+BGD: colors(val_from_slider('BTC', 'BGD', trx_data), 'BGD'),
+BRB: colors(val_from_slider('BTC', 'BRB', trx_data), 'BRB'),
+BLR: colors(val_from_slider('BTC', 'BLR', trx_data), 'BLR'),
+BEL: colors(val_from_slider('BTC', 'BEL', trx_data), 'BEL'),
+BLZ: colors(val_from_slider('BTC', 'BLZ', trx_data), 'BLZ'),
+BEN: colors(val_from_slider('BTC', 'BEN', trx_data), 'BEN'),
+BMU: colors(val_from_slider('BTC', 'BMU', trx_data), 'BMU'),
+BTN: colors(val_from_slider('BTC', 'BTN', trx_data), 'BTN'),
+BOL: colors(val_from_slider('BTC', 'BOL', trx_data), 'BOL'),
+BES: colors(val_from_slider('BTC', 'BES', trx_data), 'BES'),
+BIH: colors(val_from_slider('BTC', 'BIH', trx_data), 'BIH'),
+BWA: colors(val_from_slider('BTC', 'BWA', trx_data), 'BWA'),
+BVT: colors(val_from_slider('BTC', 'BVT', trx_data), 'BVT'),
+BRA: colors(val_from_slider('BTC', 'BRA', trx_data), 'BRA'),
+IOT: colors(val_from_slider('BTC', 'IOT', trx_data), 'IOT'),
+BRN: colors(val_from_slider('BTC', 'BRN', trx_data), 'BRN'),
+BGR: colors(val_from_slider('BTC', 'BGR', trx_data), 'BGR'),
+BFA: colors(val_from_slider('BTC', 'BFA', trx_data), 'BFA'),
+BDI: colors(val_from_slider('BTC', 'BDI', trx_data), 'BDI'),
+KHM: colors(val_from_slider('BTC', 'KHM', trx_data), 'KHM'),
+CMR: colors(val_from_slider('BTC', 'CMR', trx_data), 'CMR'),
+CAN: colors(val_from_slider('BTC', 'CAN', trx_data), 'CAN'),
+CPV: colors(val_from_slider('BTC', 'CPV', trx_data), 'CPV'),
+CYM: colors(val_from_slider('BTC', 'CYM', trx_data), 'CYM'),
+CAF: colors(val_from_slider('BTC', 'CAF', trx_data), 'CAF'),
+TCD: colors(val_from_slider('BTC', 'TCD', trx_data), 'TCD'),
+CHL: colors(val_from_slider('BTC', 'CHL', trx_data), 'CHL'),
+CHN: colors(val_from_slider('BTC', 'CHN', trx_data), 'CHN'),
+CXR: colors(val_from_slider('BTC', 'CXR', trx_data), 'CXR'),
+CCK: colors(val_from_slider('BTC', 'CCK', trx_data), 'CCK'),
+COL: colors(val_from_slider('BTC', 'COL', trx_data), 'COL'),
+COM: colors(val_from_slider('BTC', 'COM', trx_data), 'COM'),
+COG: colors(val_from_slider('BTC', 'COG', trx_data), 'COG'),
+COD: colors(val_from_slider('BTC', 'COD', trx_data), 'COD'),
+COK: colors(val_from_slider('BTC', 'COK', trx_data), 'COK'),
+CRI: colors(val_from_slider('BTC', 'CRI', trx_data), 'CRI'),
+CIV: colors(val_from_slider('BTC', 'CIV', trx_data), 'CIV'),
+HRV: colors(val_from_slider('BTC', 'HRV', trx_data), 'HRV'),
+CUB: colors(val_from_slider('BTC', 'CUB', trx_data), 'CUB'),
+CUW: colors(val_from_slider('BTC', 'CUW', trx_data), 'CUW'),
+CYP: colors(val_from_slider('BTC', 'CYP', trx_data), 'CYP'),
+CZE: colors(val_from_slider('BTC', 'CZE', trx_data), 'CZE'),
+DNK: colors(val_from_slider('BTC', 'DNK', trx_data), 'DNK'),
+DJI: colors(val_from_slider('BTC', 'DJI', trx_data), 'DJI'),
+DMA: colors(val_from_slider('BTC', 'DMA', trx_data), 'DMA'),
+DOM: colors(val_from_slider('BTC', 'DOM', trx_data), 'DOM'),
+ECU: colors(val_from_slider('BTC', 'ECU', trx_data), 'ECU'),
+EGY: colors(val_from_slider('BTC', 'EGY', trx_data), 'EGY'),
+SLV: colors(val_from_slider('BTC', 'SLV', trx_data), 'SLV'),
+GNQ: colors(val_from_slider('BTC', 'GNQ', trx_data), 'GNQ'),
+ERI: colors(val_from_slider('BTC', 'ERI', trx_data), 'ERI'),
+EST: colors(val_from_slider('BTC', 'EST', trx_data), 'EST'),
+ETH: colors(val_from_slider('BTC', 'ETH', trx_data), 'ETH'),
+FLK: colors(val_from_slider('BTC', 'FLK', trx_data), 'FLK'),
+FRO: colors(val_from_slider('BTC', 'FRO', trx_data), 'FRO'),
+FJI: colors(val_from_slider('BTC', 'FJI', trx_data), 'FJI'),
+FIN: colors(val_from_slider('BTC', 'FIN', trx_data), 'FIN'),
+FRA: colors(val_from_slider('BTC', 'FRA', trx_data), 'FRA'),
+GUF: colors(val_from_slider('BTC', 'GUF', trx_data), 'GUF'),
+PYF: colors(val_from_slider('BTC', 'PYF', trx_data), 'PYF'),
+ATF: colors(val_from_slider('BTC', 'ATF', trx_data), 'ATF'),
+GAB: colors(val_from_slider('BTC', 'GAB', trx_data), 'GAB'),
+GMB: colors(val_from_slider('BTC', 'GMB', trx_data), 'GMB'),
+GEO: colors(val_from_slider('BTC', 'GEO', trx_data), 'GEO'),
+DEU: colors(val_from_slider('BTC', 'DEU', trx_data), 'DEU'),
+GHA: colors(val_from_slider('BTC', 'GHA', trx_data), 'GHA'),
+GIB: colors(val_from_slider('BTC', 'GIB', trx_data), 'GIB'),
+GRC: colors(val_from_slider('BTC', 'GRC', trx_data), 'GRC'),
+GRL: colors(val_from_slider('BTC', 'GRL', trx_data), 'GRL'),
+GRD: colors(val_from_slider('BTC', 'GRD', trx_data), 'GRD'),
+GLP: colors(val_from_slider('BTC', 'GLP', trx_data), 'GLP'),
+GUM: colors(val_from_slider('BTC', 'GUM', trx_data), 'GUM'),
+GTM: colors(val_from_slider('BTC', 'GTM', trx_data), 'GTM'),
+GGY: colors(val_from_slider('BTC', 'GGY', trx_data), 'GGY'),
+GIN: colors(val_from_slider('BTC', 'GIN', trx_data), 'GIN'),
+GNB: colors(val_from_slider('BTC', 'GNB', trx_data), 'GNB'),
+GUY: colors(val_from_slider('BTC', 'GUY', trx_data), 'GUY'),
+HTI: colors(val_from_slider('BTC', 'HTI', trx_data), 'HTI'),
+HMD: colors(val_from_slider('BTC', 'HMD', trx_data), 'HMD'),
+VAT: colors(val_from_slider('BTC', 'VAT', trx_data), 'VAT'),
+HND: colors(val_from_slider('BTC', 'HND', trx_data), 'HND'),
+HKG: colors(val_from_slider('BTC', 'HKG', trx_data), 'HKG'),
+HUN: colors(val_from_slider('BTC', 'HUN', trx_data), 'HUN'),
+ISL: colors(val_from_slider('BTC', 'ISL', trx_data), 'ISL'),
+IND: colors(val_from_slider('BTC', 'IND', trx_data), 'IND'),
+IDN: colors(val_from_slider('BTC', 'IDN', trx_data), 'IDN'),
+IRN: colors(val_from_slider('BTC', 'IRN', trx_data), 'IRN'),
+IRQ: colors(val_from_slider('BTC', 'IRQ', trx_data), 'IRQ'),
+IRL: colors(val_from_slider('BTC', 'IRL', trx_data), 'IRL'),
+IMN: colors(val_from_slider('BTC', 'IMN', trx_data), 'IMN'),
+ISR: colors(val_from_slider('BTC', 'ISR', trx_data), 'ISR'),
+ITA: colors(val_from_slider('BTC', 'ITA', trx_data), 'ITA'),
+JAM: colors(val_from_slider('BTC', 'JAM', trx_data), 'JAM'),
+JPN: colors(val_from_slider('BTC', 'JPN', trx_data), 'JPN'),
+JEY: colors(val_from_slider('BTC', 'JEY', trx_data), 'JEY'),
+JOR: colors(val_from_slider('BTC', 'JOR', trx_data), 'JOR'),
+KAZ: colors(val_from_slider('BTC', 'KAZ', trx_data), 'KAZ'),
+KEN: colors(val_from_slider('BTC', 'KEN', trx_data), 'KEN'),
+KIR: colors(val_from_slider('BTC', 'KIR', trx_data), 'KIR'),
+PRK: colors(val_from_slider('BTC', 'PRK', trx_data), 'PRK'),
+KOR: colors(val_from_slider('BTC', 'KOR', trx_data), 'KOR'),
+KWT: colors(val_from_slider('BTC', 'KWT', trx_data), 'KWT'),
+KGZ: colors(val_from_slider('BTC', 'KGZ', trx_data), 'KGZ'),
+LAO: colors(val_from_slider('BTC', 'LAO', trx_data), 'LAO'),
+LVA: colors(val_from_slider('BTC', 'LVA', trx_data), 'LVA'),
+LBN: colors(val_from_slider('BTC', 'LBN', trx_data), 'LBN'),
+LSO: colors(val_from_slider('BTC', 'LSO', trx_data), 'LSO'),
+LBR: colors(val_from_slider('BTC', 'LBR', trx_data), 'LBR'),
+LBY: colors(val_from_slider('BTC', 'LBY', trx_data), 'LBY'),
+LIE: colors(val_from_slider('BTC', 'LIE', trx_data), 'LIE'),
+LTU: colors(val_from_slider('BTC', 'LTU', trx_data), 'LTU'),
+LUX: colors(val_from_slider('BTC', 'LUX', trx_data), 'LUX'),
+MAC: colors(val_from_slider('BTC', 'MAC', trx_data), 'MAC'),
+MKD: colors(val_from_slider('BTC', 'MKD', trx_data), 'MKD'),
+MDG: colors(val_from_slider('BTC', 'MDG', trx_data), 'MDG'),
+MWI: colors(val_from_slider('BTC', 'MWI', trx_data), 'MWI'),
+MYS: colors(val_from_slider('BTC', 'MYS', trx_data), 'MYS'),
+MDV: colors(val_from_slider('BTC', 'MDV', trx_data), 'MDV'),
+MLI: colors(val_from_slider('BTC', 'MLI', trx_data), 'MLI'),
+MLT: colors(val_from_slider('BTC', 'MLT', trx_data), 'MLT'),
+MHL: colors(val_from_slider('BTC', 'MHL', trx_data), 'MHL'),
+MTQ: colors(val_from_slider('BTC', 'MTQ', trx_data), 'MTQ'),
+MRT: colors(val_from_slider('BTC', 'MRT', trx_data), 'MRT'),
+MUS: colors(val_from_slider('BTC', 'MUS', trx_data), 'MUS'),
+MYT: colors(val_from_slider('BTC', 'MYT', trx_data), 'MYT'),
+MEX: colors(val_from_slider('BTC', 'MEX', trx_data), 'MEX'),
+FSM: colors(val_from_slider('BTC', 'FSM', trx_data), 'FSM'),
+MDA: colors(val_from_slider('BTC', 'MDA', trx_data), 'MDA'),
+MCO: colors(val_from_slider('BTC', 'MCO', trx_data), 'MCO'),
+MNG: colors(val_from_slider('BTC', 'MNG', trx_data), 'MNG'),
+MNE: colors(val_from_slider('BTC', 'MNE', trx_data), 'MNE'),
+MSR: colors(val_from_slider('BTC', 'MSR', trx_data), 'MSR'),
+MAR: colors(val_from_slider('BTC', 'MAR', trx_data), 'MAR'),
+MOZ: colors(val_from_slider('BTC', 'MOZ', trx_data), 'MOZ'),
+MMR: colors(val_from_slider('BTC', 'MMR', trx_data), 'MMR'),
+NAM: colors(val_from_slider('BTC', 'NAM', trx_data), 'NAM'),
+NRU: colors(val_from_slider('BTC', 'NRU', trx_data), 'NRU'),
+NPL: colors(val_from_slider('BTC', 'NPL', trx_data), 'NPL'),
+NLD: colors(val_from_slider('BTC', 'NLD', trx_data), 'NLD'),
+NCL: colors(val_from_slider('BTC', 'NCL', trx_data), 'NCL'),
+NZL: colors(val_from_slider('BTC', 'NZL', trx_data), 'NZL'),
+NIC: colors(val_from_slider('BTC', 'NIC', trx_data), 'NIC'),
+NER: colors(val_from_slider('BTC', 'NER', trx_data), 'NER'),
+NGA: colors(val_from_slider('BTC', 'NGA', trx_data), 'NGA'),
+NIU: colors(val_from_slider('BTC', 'NIU', trx_data), 'NIU'),
+NFK: colors(val_from_slider('BTC', 'NFK', trx_data), 'NFK'),
+MNP: colors(val_from_slider('BTC', 'MNP', trx_data), 'MNP'),
+NOR: colors(val_from_slider('BTC', 'NOR', trx_data), 'NOR'),
+OMN: colors(val_from_slider('BTC', 'OMN', trx_data), 'OMN'),
+PAK: colors(val_from_slider('BTC', 'PAK', trx_data), 'PAK'),
+PLW: colors(val_from_slider('BTC', 'PLW', trx_data), 'PLW'),
+PSE: colors(val_from_slider('BTC', 'PSE', trx_data), 'PSE'),
+PAN: colors(val_from_slider('BTC', 'PAN', trx_data), 'PAN'),
+PNG: colors(val_from_slider('BTC', 'PNG', trx_data), 'PNG'),
+PRY: colors(val_from_slider('BTC', 'PRY', trx_data), 'PRY'),
+PER: colors(val_from_slider('BTC', 'PER', trx_data), 'PER'),
+PHL: colors(val_from_slider('BTC', 'PHL', trx_data), 'PHL'),
+PCN: colors(val_from_slider('BTC', 'PCN', trx_data), 'PCN'),
+POL: colors(val_from_slider('BTC', 'POL', trx_data), 'POL'),
+PRT: colors(val_from_slider('BTC', 'PRT', trx_data), 'PRT'),
+PRI: colors(val_from_slider('BTC', 'PRI', trx_data), 'PRI'),
+QAT: colors(val_from_slider('BTC', 'QAT', trx_data), 'QAT'),
+REU: colors(val_from_slider('BTC', 'REU', trx_data), 'REU'),
+ROU: colors(val_from_slider('BTC', 'ROU', trx_data), 'ROU'),
+RUS: colors(val_from_slider('BTC', 'RUS', trx_data), 'RUS'),
+RWA: colors(val_from_slider('BTC', 'RWA', trx_data), 'RWA'),
+BLM: colors(val_from_slider('BTC', 'BLM', trx_data), 'BLM'),
+SHN: colors(val_from_slider('BTC', 'SHN', trx_data), 'SHN'),
+KNA: colors(val_from_slider('BTC', 'KNA', trx_data), 'KNA'),
+LCA: colors(val_from_slider('BTC', 'LCA', trx_data), 'LCA'),
+MAF: colors(val_from_slider('BTC', 'MAF', trx_data), 'MAF'),
+SPM: colors(val_from_slider('BTC', 'SPM', trx_data), 'SPM'),
+VCT: colors(val_from_slider('BTC', 'VCT', trx_data), 'VCT'),
+WSM: colors(val_from_slider('BTC', 'WSM', trx_data), 'WSM'),
+SMR: colors(val_from_slider('BTC', 'SMR', trx_data), 'SMR'),
+STP: colors(val_from_slider('BTC', 'STP', trx_data), 'STP'),
+SAU: colors(val_from_slider('BTC', 'SAU', trx_data), 'SAU'),
+SEN: colors(val_from_slider('BTC', 'SEN', trx_data), 'SEN'),
+SRB: colors(val_from_slider('BTC', 'SRB', trx_data), 'SRB'),
+SYC: colors(val_from_slider('BTC', 'SYC', trx_data), 'SYC'),
+SLE: colors(val_from_slider('BTC', 'SLE', trx_data), 'SLE'),
+SGP: colors(val_from_slider('BTC', 'SGP', trx_data), 'SGP'),
+SXM: colors(val_from_slider('BTC', 'SXM', trx_data), 'SXM'),
+SVK: colors(val_from_slider('BTC', 'SVK', trx_data), 'SVK'),
+SVN: colors(val_from_slider('BTC', 'SVN', trx_data), 'SVN'),
+SLB: colors(val_from_slider('BTC', 'SLB', trx_data), 'SLB'),
+SOM: colors(val_from_slider('BTC', 'SOM', trx_data), 'SOM'),
+ZAF: colors(val_from_slider('BTC', 'ZAF', trx_data), 'ZAF'),
+SGS: colors(val_from_slider('BTC', 'SGS', trx_data), 'SGS'),
+SSD: colors(val_from_slider('BTC', 'SSD', trx_data), 'SSD'),
+ESP: colors(val_from_slider('BTC', 'ESP', trx_data), 'ESP'),
+LKA: colors(val_from_slider('BTC', 'LKA', trx_data), 'LKA'),
+SDN: colors(val_from_slider('BTC', 'SDN', trx_data), 'SDN'),
+SUR: colors(val_from_slider('BTC', 'SUR', trx_data), 'SUR'),
+SJM: colors(val_from_slider('BTC', 'SJM', trx_data), 'SJM'),
+SWZ: colors(val_from_slider('BTC', 'SWZ', trx_data), 'SWZ'),
+SWE: colors(val_from_slider('BTC', 'SWE', trx_data), 'SWE'),
+CHE: colors(val_from_slider('BTC', 'CHE', trx_data), 'CHE'),
+SYR: colors(val_from_slider('BTC', 'SYR', trx_data), 'SYR'),
+TWN: colors(val_from_slider('BTC', 'TWN', trx_data), 'TWN'),
+TJK: colors(val_from_slider('BTC', 'TJK', trx_data), 'TJK'),
+TZA: colors(val_from_slider('BTC', 'TZA', trx_data), 'TZA'),
+THA: colors(val_from_slider('BTC', 'THA', trx_data), 'THA'),
+TLS: colors(val_from_slider('BTC', 'TLS', trx_data), 'TLS'),
+TGO: colors(val_from_slider('BTC', 'TGO', trx_data), 'TGO'),
+TKL: colors(val_from_slider('BTC', 'TKL', trx_data), 'TKL'),
+TON: colors(val_from_slider('BTC', 'TON', trx_data), 'TON'),
+TTO: colors(val_from_slider('BTC', 'TTO', trx_data), 'TTO'),
+TUN: colors(val_from_slider('BTC', 'TUN', trx_data), 'TUN'),
+TUR: colors(val_from_slider('BTC', 'TUR', trx_data), 'TUR'),
+TKM: colors(val_from_slider('BTC', 'TKM', trx_data), 'TKM'),
+TCA: colors(val_from_slider('BTC', 'TCA', trx_data), 'TCA'),
+TUV: colors(val_from_slider('BTC', 'TUV', trx_data), 'TUV'),
+UGA: colors(val_from_slider('BTC', 'UGA', trx_data), 'UGA'),
+UKR: colors(val_from_slider('BTC', 'UKR', trx_data), 'UKR'),
+ARE: colors(val_from_slider('BTC', 'ARE', trx_data), 'ARE'),
+GBR: colors(val_from_slider('BTC', 'GBR', trx_data), 'GBR'),
+USA: colors(val_from_slider('BTC', 'USA', trx_data), 'USA'),
+UMI: colors(val_from_slider('BTC', 'UMI', trx_data), 'UMI'),
+URY: colors(val_from_slider('BTC', 'URY', trx_data), 'URY'),
+UZB: colors(val_from_slider('BTC', 'UZB', trx_data), 'UZB'),
+VUT: colors(val_from_slider('BTC', 'VUT', trx_data), 'VUT'),
+VEN: colors(val_from_slider('BTC', 'VEN', trx_data), 'VEN'),
+VNM: colors(val_from_slider('BTC', 'VNM', trx_data), 'VNM'),
+VGB: colors(val_from_slider('BTC', 'VGB', trx_data), 'VGB'),
+VIR: colors(val_from_slider('BTC', 'VIR', trx_data), 'VIR'),
+WLF: colors(val_from_slider('BTC', 'WLF', trx_data), 'WLF'),
+ESH: colors(val_from_slider('BTC', 'ESH', trx_data), 'ESH'),
+YEM: colors(val_from_slider('BTC', 'YEM', trx_data), 'YEM'),
+ZMB: colors(val_from_slider('BTC', 'ZMB', trx_data), 'ZMB'),
+ZWE: colors(val_from_slider('BTC', 'ZWE', trx_data), 'ZWE'),
+
+        })
+
+    }, 1000);
+
 });
