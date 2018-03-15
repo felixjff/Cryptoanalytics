@@ -32,6 +32,16 @@ body {
 
 
 /* Line Chart Styling */
+
+.legend {
+  font-family: 'Raleway', sans-serif;
+  fill: #333333;
+}
+
+
+
+
+/* Line Chart Styling */
 h3{
     color: #f8fdff;
     padding-left: 20px;

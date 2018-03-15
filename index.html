@@ -87,7 +87,14 @@
                 </div>
             </div>
 
-
+            <div class="row well">
+                <div class="cs-center">
+                    <h2>Abritrage Opportunities Today</h2>
+                </div>
+                <div class="cs-center">
+                    <div class ="radarChart"></div>
+                </div>
+            </div>
     </div>
 
     <!-- Packages/Sources/Function Calls -->
@@ -131,6 +138,71 @@
     <!-- Bubble Chart -->
     <script src="../src/charts/BubbleChart.js"></script>
 
-    <!-- Heat Map Chart -->
+    <!-- Radar Chart -->
+    <script src="../src/charts/radarChart.js"></script>	
+		<script>
+            
+			////////////////////////////////////////////////////////////// 
+			//////////////////////// Set-Up ////////////////////////////// 
+			////////////////////////////////////////////////////////////// 
+
+			var margin_radar = {top: 100, right: 100, bottom: 100, left: 100},
+				width_radar = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
+				height_radar = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+					
+			////////////////////////////////////////////////////////////// 
+			////////////////////////// Data ////////////////////////////// 
+			////////////////////////////////////////////////////////////// 
+
+			var data_radar = [
+					  [//Broker1
+						{axis:"00:00",value:0.22},
+						{axis:"03:00",value:0.28},
+						{axis:"06:00",value:0.29},
+						{axis:"09:00",value:0.17},
+						{axis:"12:00",value:0.22},
+						{axis:"15:00",value:0.02},
+						{axis:"18:00",value:0.21},
+						{axis:"21:00",value:0.50}			
+					  ],[//Broker2
+						{axis:"00:00",value:0.27},
+						{axis:"03:00",value:0.16},
+						{axis:"06:00",value:0.35},
+						{axis:"09:00",value:0.13},
+						{axis:"12:00",value:0.20},
+						{axis:"15:00",value:0.13},
+						{axis:"18:00",value:0.35},
+						{axis:"21:00",value:0.38}
+					  ],[//Broker3
+						{axis:"00:00",value:0.26},
+						{axis:"03:00",value:0.10},
+						{axis:"06:00",value:0.30},
+						{axis:"09:00",value:0.14},
+						{axis:"12:00",value:0.22},
+						{axis:"15:00",value:0.04},
+						{axis:"18:00",value:0.41},
+						{axis:"21:00",value:0.30}
+					  ]
+					];
+			////////////////////////////////////////////////////////////// 
+			//////////////////// Draw the Chart ////////////////////////// 
+			////////////////////////////////////////////////////////////// 
+
+			var color_radar = d3.scale.ordinal()
+				.range(["#55539f","#6bb7e6","#c8e2f4"]);
+				
+			var radarChartOptions = {
+			  w: width_radar,
+			  h: height_radar,
+			  margin: margin_radar,
+			  maxValue: 0.5,
+			  levels: 5,
+			  roundStrokes: true,
+			  color: color_radar
+			};
+			
+			//Call function to draw the Radar chart
+			RadarChart(".radarChart", data_radar, radarChartOptions);
+		</script>
 </body>
 </html>
