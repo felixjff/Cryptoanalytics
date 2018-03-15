@@ -60,7 +60,7 @@ var val_from_slider = function (currency, country, trx_data) {
 };
 
 
-d3.json("/Cryptoanalytics/data/bitcnew.json", function (trx_data) {
+d3.json("/data/bitcnew.json", function (trx_data) {
     window.setInterval(function () {
 
         WorldMapcontainer.updateChoropleth({
