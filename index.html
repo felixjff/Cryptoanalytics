@@ -46,8 +46,8 @@
                                 </div>
                                 <div id="tooltipContainer"></div>
                                 <div id="WorldMapcontainer" style="position: relative; width: 1000px; height: 600px;">
-                                        <input id="slider" type="range" min="1429401600" max="1434499200" step="60" value="1429401600">
-                                        <output id="output"></output>
+                                    <input id="slider" type="range" min="1429401600" max="1434499200" step="15" value="1429401600">
+                                    <output id="output"></output>
                                 </div>
                             </div>
                         </div>
@@ -106,17 +106,19 @@
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.min.js"></script>
  
-    <script src="/Cryptoanalytics/data/datamaps.world.min.js"></script>
-    <script src="/Cryptoanalytics/src/charts/worldmap.js"></script>
+    <script src="../data/datamaps.world.min.js"></script>
+    <script src="../src/charts/worldmap.js"></script>
     <script>
-            $('input[type="range"]').rangeslider();
-            document.getElementById("slider").oninput = function () {
-                val_from_slider();
-            };
+        $('input[type="range"]').rangeslider();
+        document.getElementById("slider").oninput = function () {
+            $.getJSON('../data/bitcnew.json', function (trx_data) {
+                val_from_slider('BTC', 'RUS', trx_data);
+            });
+        };
     </script>
 
     <!-- Bubble Chart -->
-    <script src="/Cryptoanalytics/src/charts/BubbleChart.js"></script>
+    <script src="../src/charts/BubbleChart.js"></script>
 
     <!-- Heat Map Chart -->
 </body>
