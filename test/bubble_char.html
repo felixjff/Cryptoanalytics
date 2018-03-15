@@ -12,8 +12,8 @@
 <body>
 	<script type="text/javascript">
 
-        dataset1 = {
-            "country": "world",
+        dataset = {
+            "date": "2018-03-08",
             "children": [{"Currency":"Bitcoin","MarketCap":168241000000},
                 {"Currency":"Ethereum","MarketCap":73788400000},
                 {"Currency":"Ripple","MarketCap":34108000000},
@@ -24,33 +24,6 @@
                 {"Currency":"EOS","MarketCap":4651410000},
                 {"Currency":"Dash","MarketCap":4059470000}]
         };
-
-        dataset1 = {
-            "country": "usa",
-            "children": [{"Currency":"Bitcoin","MarketCap":16824100000},
-                {"Currency":"Ethereum","MarketCap":7378840000},
-                {"Currency":"Ripple","MarketCap":3410800000},
-                {"Currency":"Litecoin","MarketCap":1031160000},
-                {"Currency":"NEO","MarketCap":653477000},
-                {"Currency":"Stellar","MarketCap":609174000},
-                {"Currency":"Monero","MarketCap":534231000},
-                {"Currency":"EOS","MarketCap":465141000},
-                {"Currency":"Dash","MarketCap":405947000}]
-        };
-
-        dataset2 = {
-            "country": "china",
-            "children": [{"Currency":"Bitcoin","MarketCap":16424100000},
-                {"Currency":"Ethereum","MarketCap":7678840000},
-                {"Currency":"Ripple","MarketCap":3110800000},
-                {"Currency":"Litecoin","MarketCap":1931160000},
-                {"Currency":"NEO","MarketCap":613477000},
-                {"Currency":"Stellar","MarketCap":709174000},
-                {"Currency":"Monero","MarketCap":934231000},
-                {"Currency":"EOS","MarketCap":565141000},
-                {"Currency":"Dash","MarketCap":485947000}]
-        };
-
         // set color scheme and bubble chart size
         var diameter = 600;
         var color = d3.scaleOrdinal(d3.schemeCategory20);
@@ -119,6 +92,60 @@
             .style("height", diameter + "px");
 
         // add slider
+        var margin = {top:50, right:50, bottom:0, left:50},
+    		width = 500 - margin.left - margin.right;
+    		height = diameter;
+
+    	var formatDate = d3.timeFormat("%d");
+
+        var startDate = new Date("2017-03-09"),
+    		endDate = new Date("2017-03-27");
+
+    	var x = d3.scaleTime()
+    				.domain([startDate, endDate])
+    				.range([0, width])
+    				.clamp(true);
+
+    	var slider = svg.append("g")
+    					.attr("class", "slider")
+    					.attr("transform", "translate(" + margin.left + "," + height/5 + ")");
+
+    	slider.append("line")
+    			.attr("class", "track")
+    			.attr("x1", x.range()[0])
+    			.attr("x2", x.range()[1])
+  				.select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+    			.attr("class", "track-inset")
+  				.select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+    			.attr("class", "track-overlay")
+    			.call(d3.drag()
+        		.on("start.interrupt", function() { slider.interrupt(); })
+        		.on("start drag", function() {currentValue = d3.event.x;
+          							update(x.invert(currentValue)); 
+        					})
+    						);
+
+    	slider.insert("g", ".track-overlay")
+    			.attr("class", "ticks")
+    			.attr("transform", "translate(0," + 18 + ")")
+  				.selectAll("text")
+    			.data(x.ticks(10))
+    			.enter()
+    			.append("text")
+    			.attr("x", x)
+    			.attr("y", height-150)
+    			.attr("text-anchor", "middle")
+    			.text(function(d) { return formatDate(d); });
+
+    	var label = slider.append("text")  
+    					.attr("class", "label")
+    					.attr("text-anchor", "middle")
+    					.text(formatDate(startDate))
+    					.attr("transform", "translate(0," + (-25) + ")")
+    					
+    	var handle = slider.insert("circle", ".track-overlay")
+    						.attr("class", "handle")
+    						.attr("r", 9);
 
 	</script>
 </body>
