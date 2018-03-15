@@ -19,7 +19,8 @@
     <div class="navbar navbar-fixed-top navbar-inverse cs-navbar">
         <div class="navbar-inner">
             <div class="container">
-                <a href="#" class="navbar-brand cs-brand"><i class="icon-bar-chart icon-medium"> <strong>CryptoAnalytics</strong></i></a>
+                <a href="#Intro" id="intro" class="navbar-brand col-lg-3"><i class="icon-medium"> <strong>Introduction</strong></i></a>
+                <a href="#Analytcs" id="analytics" class="navbar-brand col-lg-3"><i class="icon-bar-chart icon-medium"> <strong>CryptoAnalytics</strong></i></a>
             </div>
         </div>
     </div>
@@ -34,7 +35,7 @@
 
         <div class="row cs-padded">
 
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                   <div class="cs-center">
                     <h2>Nr. Transactions Over Time</h2>
                   </div>
@@ -44,34 +45,44 @@
                                 <div id="mapContainer">
                                     <div id="cryptoMap"></div>
                                 </div>
+                             <div class="cs-center">
                                 <div id="tooltipContainer"></div>
-                                <div id="WorldMapcontainer" style="position: relative; width: 1000px; height: 600px;">
+                                <div id="WorldMapcontainer" style="position: relative; width: 1000px; height: 800px;">
                                     <input id="slider" type="range" min="1429401600" max="1434499200" step="15" value="1429401600">
                                     <output id="output"></output>
                                 </div>
+                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
     
-                <div class="col-lg-6">
-                    <div class="cs-center">
-                        <h2>Market Capitalization Over Time</h2>
-                    </div>
-                    <div id="bubblechart"></div>
-                </div>
+
             </div>
 
 
             <div class="row well">
-                <div class="col-xs-12" >
+<!--                <div class="col-xs-12" >
                     <div class="cs-center">
                         <h2>A Price History</h2>
                     </div>
+                </div> -->
+                <div class="col-lg-5">
+                    <div class="cs-center">
+                        <h2>Market Capitalization Over Time</h2>
+                    </div>
+                    <div class="cs-center">
+                        <div id="bubblechart"></div>
+                    </div>
                 </div>
 
-                <div class="col-xs-12" >
-                    <div class="top" id="line-chart">
+                <div class="col-xs-7" >
+                    <div class="cs-center">
+                        <h2>Cryptocurrency Price Over Time</h2>
+                    </div>
+                    <div class="cs-center">
+                        <div class="top" id="line-chart">
+                        </div>
                     </div>
                 </div>
             </div>

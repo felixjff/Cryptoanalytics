@@ -11,7 +11,7 @@ dataset = {
         {"Currency":"Dash","MarketCap":4059470000}]
 };
 // set color scheme and bubble chart size
-var diameter = 600;
+var diameter = 400;
 var color = d3version4.scaleOrdinal(d3version4.schemeCategory20);
 
 // set bubble parameters

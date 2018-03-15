@@ -99,7 +99,7 @@ var ToolTip=React.createClass({
                          fill="#6391da" opacity=".9" visibility={visibility}/>
                 <text is visibility={visibility} transform={transformText}>
                     <tspan is x="0" text-anchor="middle" font-size="15px" fill="#ffffff">{this.props.tooltip.data.key}</tspan>
-                    <tspan is x="0" text-anchor="middle" dy="25" font-size="12px" fill="#a9f3ff">{"1 Bitcoin = " +this.props.tooltip.data.value + " USD"}</tspan>
+                    <tspan is x="0" text-anchor="middle" dy="25" font-size="12px" fill="#a9f3ff">{"1 Unit = " +this.props.tooltip.data.value + " USD"}</tspan>
                 </text>
             </g>
         );
@@ -126,8 +126,8 @@ var Dots=React.createClass({
         var _self=this;
 
         //remove last & first point
-        var data = this.props.data.splice(1);
-        data.pop();
+        var data = this.props.data.splice(0);
+        //data.pop();
         
         //Use .map to create a circle element for the desired data points
         var circles=data.map(function(d,i){
@@ -160,7 +160,7 @@ var LineChart=React.createClass({
     /*Assign default values for properties*/
     getDefaultProps: function() {
         return {
-            crypto: "BTC",
+            crypto: "Bitcoin",
             width: 800,
             height: 300,
             chartId: 'v1_chart'
@@ -181,7 +181,7 @@ var LineChart=React.createClass({
         console.log(crypto)
 
         /*Dummy Data -> Must be improved to use data depending on crypto selection*/
-        if (crypto == 'BTC') {   
+        if (crypto == 'Bitcoin') {   
         var data=[
             {day:'08-12-2012',price:11},
             {day:'01-19-2013',price:45},
@@ -193,12 +193,163 @@ var LineChart=React.createClass({
             {day:'11-02-2017',price:6880},
             {day:'12-21-2017',price:17100},
             {day:'02-07-2018',price:7900},
-            {day:'04-04-2018',price:11500}
-        ]; }
+            {day:'03-15-2018',price:11500}
+        ]; } else if(crypto == "Ethereum"){
+            var data=[
+                {day:'05-06-2016',price:11},
+                {day:'03-26-2017',price:50.44},
+                {day:'05-23-2017',price:360.23},
+                {day:'07-01-2017',price:259},
+                //{day:'07-15-2017',price:176},
+                //{day:'07-30-2017',price:198},
+                {day:'08-02-2017',price:363},
+                {day:'09-5-2017',price:288},
+                {day:'10-15-2017',price:293},
+                {day:'11-10-2017',price:488},
+                {day:'12-01-2017',price:440},
+                {day:'12-21-2017',price:866},
+                {day:'12-28-2017',price:702},
+                {day:'01-15-2018',price:1217},
+                {day:'02-08-2018',price:827},
+                {day:'02-30-2018',price:928},
+                {day:'03-15-2018',price:594}
+            ];
+        } else if(crypto == "Ripple"){
+            var data=[
+                {day:'09-21-2013',price:0.0014},
+                {day:'03-01-2017',price:0.007},
+                //{day:'05-03-2017',price:0.06},
+                {day:'07-20-2017',price:0.48},
+                //{day:'07-15-2017',price:176},
+                //{day:'07-30-2017',price:198},
+                {day:'09-02-2017',price:0.25},
+                {day:'12-5-2017',price:0.26},
+                {day:'01-15-2018',price:1.18},
+                {day:'01-30-2018',price:2.93},
+                //{day:'02-15-2018',price:0.73},
+                {day:'03-15-2018',price:0.67},  
+            ];
+        } else if(crypto == "Litecoin"){
+            var data=[
+                {day:'07-24-2013',price:2.87},
+                {day:'11-14-2013',price:4.34},
+                {day:'12-15-2013',price:42.23},
+                {day:'01-15-2014',price:23},
+                //{day:'07-15-2017',price:176},
+                //{day:'07-30-2017',price:198},
+                {day:'04-15-2014',price:11},
+                {day:'08-15-2014',price:7},
+                {day:'01-15-2015',price:2.71},
+                {day:'01-01-2016',price:3.50},
+                {day:'11-05-2016',price:30},
+                {day:'06-07-2017',price:79},
+                {day:'10-15-2017',price:50},
+                {day:'12-15-2017',price:355},
+                {day:'01-15-2018',price:122},
+                {day:'02-15-2018',price:222},
+                {day:'03-15-2018',price:162}
+            ];
+        } else if(crypto == "NEO"){
+            var data=[
+                {day:'09-06-2016',price:0.20},
+                {day:'04-15-2017',price:0.22},
+                {day:'06-15-2017',price:11.23},
+                {day:'07-15-2017',price:5.20},
+                //{day:'07-15-2017',price:176},
+                //{day:'07-30-2017',price:198},
+                {day:'08-15-2017',price:47},
+                {day:'09-15-2017',price:15},
+                {day:'10-15-2017',price:27},
+                {day:'11-15-2017',price:42},
+                {day:'12-15-2017',price:33},
+                {day:'01-01-2018',price:103},
+                {day:'01-16-2018',price:198},
+                {day:'02-01-2018',price:163},
+                {day:'02-15-2018',price:81},
+                {day:'02-30-2018',price:141},
+                {day:'03-15-2018',price:68}
+            ];
+        } else if(crypto == "Stellar"){
+            var data=[
+                {day:'09-20-2014',price:0.0022},
+                {day:'01-15-2017',price:0.0029},
+                {day:'05-15-2017',price:0.086},
+                //{day:'07-15-2017',price:176},
+                //{day:'07-30-2017',price:198},
+                {day:'09-15-2017',price:0.012},
+                {day:'12-15-2017',price:0.26},
+                {day:'12-30-2017',price:0.875},
+                {day:'01-15-2018',price:0.44},
+                {day:'02-01-2018',price:0.62},
+                {day:'02-15-2018',price:0.33},
+                {day:'02-28-2018',price:0.44},
+                {day:'03-15-2018',price:0.22},
+            ];
+        } else if(crypto == "Monero"){
+            var data=[
+                {day:'09-14-2014',price:1.87},
+                {day:'08-01-2016',price:2.20},
+                {day:'01-15-2017',price:12.23},
+                {day:'05-01-2017',price:46},
+                //{day:'07-15-2017',price:176},
+                //{day:'07-30-2017',price:198},
+                {day:'07-15-2017',price:44},
+                {day:'08-30-2017',price:134},
+                {day:'10-01-2017',price:86},
+                {day:'10-21-2017',price:483},
+                {day:'11-15-2017',price:329},
+                {day:'12-01-2017',price:542.33},
+                {day:'01-15-2018',price:211},
+                {day:'02-01-2018',price:364},
+                {day:'03-15-2018',price:214}
+            ];
+        } else if(crypto == "EOS"){
+            var data=[
+                {day:'03-05-2017',price:1.64},
+                {day:'06-10-2017',price:0.54},
+                {day:'07-15-2017',price:1.65},
+                {day:'08-01-2017',price:4.75},
+                //{day:'07-15-2017',price:176},
+                //{day:'07-30-2017',price:198},
+                {day:'08-15-2017',price:3.80},
+                {day:'09-01-2017',price:8.50},
+                {day:'09-15-2017',price:8.13},
+                {day:'10-01-2017',price:11.13},
+                {day:'10-15-2017',price:8.25},
+                {day:'11-01-2017',price:11.71},
+                {day:'11-15-2017',price:9.59},
+                {day:'12-01-2017',price:18.13},
+                {day:'12-15-2017',price:11.07},
+                {day:'01-01-2018',price:18.18},
+                {day:'01-15-2018',price:15.20},
+                {day:'02-01-2018',price:6.99},
+                {day:'02-15-2018',price:10.23},
+                {day:'03-15-2018',price:5.07}
+            ];
+        } else if(crypto == "Dash"){
+            var data=[
+                {day:'05-06-2016',price:11},
+                {day:'03-26-2017',price:50.44},
+                {day:'05-23-2017',price:360.23},
+                {day:'07-01-2017',price:259},
+                //{day:'07-15-2017',price:176},
+                //{day:'07-30-2017',price:198},
+                {day:'08-02-2017',price:363},
+                {day:'09-5-2017',price:288},
+                {day:'10-15-2017',price:293},
+                {day:'11-10-2017',price:488},
+                {day:'12-01-2017',price:440},
+                {day:'12-28-2017',price:702},
+                {day:'01-15-2018',price:1517},
+                {day:'02-08-2018',price:827},
+                {day:'02-30-2018',price:928},
+                {day:'03-15-2018',price:594}
+            ];
+        }
 
         /*Define borders of SVG*/
         var margin = {top: 5, right: 50, bottom: 20, left: 50},
-            w = this.state.width - (margin.left + margin.right),
+            w = this.state.width/1.2 - (margin.left + margin.right),
             h = this.props.height - (margin.top + margin.bottom);
         
         /*Transform Epoch date to specific time format*/
@@ -218,12 +369,11 @@ var LineChart=React.createClass({
  
         var y = d3.scale.linear()
             .domain([0,d3.max(data,function(d){
-                return d.price+100;
+                return d.price;
             })])
             .range([h, 0]);
 
         /*Define D3 functions to set up x- and y-axis*/ 
-        console.log(data[1].date.getMonth())
         var yAxis = d3.svg.axis()
             .scale(y)
             .orient('left')
