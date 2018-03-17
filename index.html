@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="robots" content="noindex">
-    <title>Document</title>
+    <title>CryptoAnalytics</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet" type="text/css"/>
     <link href="static/style.css" rel="stylesheet" type="text/css"/>
@@ -11,7 +11,7 @@
     <link href="http://cdn.kendostatic.com/2013.2.716/styles/kendo.flat.min.css" rel="stylesheet" type="text/css" />
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="static/style.css">
 </head>
 
 <body class = "body">
@@ -47,8 +47,8 @@
                                 </div>
                              <div class="cs-center">
                                 <div id="tooltipContainer"></div>
-                                <div id="WorldMapcontainer" style="position: relative; width: 1000px; height: 800px;">
-                                    <input id="slider" type="range" min="1429401600" max="1434499200" step="15" value="1429401600">
+                                <div id="WorldMapcontainer" style="position: relative; width: 800px; height: 600px;">
+                                    <input id="slider" type="range" min="1429401600" max="1434499200" step="160" value="1429401600">
                                     <output id="output"></output>
                                 </div>
                             </div>
@@ -124,22 +124,22 @@
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.min.js"></script>
  
-    <script src="../data/datamaps.world.min.js"></script>
-    <script src="../src/charts/worldmap.js"></script>
+    <script src="data/datamaps.world.min.js"></script>
+    <script src="src/charts/worldmap.js"></script>
     <script>
         $('input[type="range"]').rangeslider();
         document.getElementById("slider").oninput = function () {
-            $.getJSON('../data/bitcnew.json', function (trx_data) {
-                val_from_slider('BTC', 'RUS', trx_data);
+            $.getJSON('data/bitcnew.json', function (trx_data) {
+                val_from_slider('BTC', 'USA', trx_data);
             });
         };
     </script>
 
     <!-- Bubble Chart -->
-    <script src="../src/charts/BubbleChart.js"></script>
+    <script src="src/charts/BubbleChart.js"></script>
 
     <!-- Radar Chart -->
-    <script src="../src/charts/radarChart.js"></script>	
+    <script src="src/charts/radarChart.js"></script>
 		<script>
             
 			////////////////////////////////////////////////////////////// 
