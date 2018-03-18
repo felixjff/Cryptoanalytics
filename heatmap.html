@@ -17,16 +17,18 @@
     <div id="exchange_choice"></div>
 
     <script>
-      var margins = { top: 50, right: 0, bottom: 100, left: 50},
+      var itemSize = 5,
+          cellSize = itemSize-1,
+          margin = { top: 50, right: 0, bottom: 100, left: 50},
           width = 500 - margin.left - margin.right,
           height = 500 - margin.top - margin.bottom,
-          gridSize = Math.floor(width / 5),
+          // gridSize = Math.floor(width / 5),
           legendElementWidth = gridSize*1.5,
           buckets = 7,
           bucket_colors = ["#d73027","#f46d43","#fdae61","#fee08b","#ffffbf","#d9ef8b","#a6d96a","#66bd63","#1a9850"]
           exchanges_buy = ["bitboy1", "bittyguy2", "big_buyer3", "exchanging_big4", "bitconnect5"]
           exchanges_sell = ["bitboy1", "bittyguy2", "big_buyer3", "exchanging_big4", "bitconnect5"] //could also be different right?
-          data_set = ["test_data.csv"]; // With pre-processing, could just load the data directly from a json/csv file
+          data_set = "test_data.csv"; // With pre-processing, could just load the data directly from a json/csv file
           // exchanges_buy = shouldbeloaded
           // exchanges_sell = shouldbeloaded
 
@@ -46,44 +48,66 @@
       // var scale = d3.scaleLinear()
       //   .domain([1, 5])
       //   .range([0, 200]); // Pixel space
-      var svg = d3.select("#chart").append("svg")
-        .attr("width",  width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom);
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      // var svg = d3.select("#chart").append("svg")
+      //   .attr("width",  width + margin.left + margin.right)
+      //   .attr("height", height + margin.top + margin.bottom)
+      //   .append("g")
+      //   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      var exchange_buy_labels = svg.selectAll(".exchange_buy_labels")
-        .data(exchange_buy)
-        .enter().append("text")
-        .text(function (d) { return d; })
+      // var exchangesBuyLabels = svg.selectAll(".exchangesBuyLabel")
+      //   .data(exchanges_buy)
+      //   .enter().append("text")
+      //     .text(function (d) { return d; })
 
-      var exchange_sell_labels = svg.selectAll(".exchange_sell_labels")
-        .data(exchange_sell)
-        .enter().append("text")
-        .text(function (d) { return d; })
+      // var exchangeSellLabels = svg.selectAll(".exchangeSellLabel")
+      //   .data(exchanges_sell)
+      //   .enter().append("text")
+      //     .text(function (d) { return d; })
 
-      var heatmapChart = function(heatmap_data) {
-        d3.csv(heatmap_data,
-        function(d) {
-          return {
-            buy: +d.buy,
-            sell: +d.sell,
-            value: +d.value
-          };
-        },
+      d3.csv(data_set, function(response) {
+
+        var data = response.map(function(entry) {}
+          var newEntry = {};
+          newEntry.buy = entry.buy;
+          newEntry.sell = entry.sell;
+          newEntry.value = entry.value;
+
+          return newEntry;
+        })
+
+        var buy_data = d3.set(data.map(function( item ) { return item.buy; } )).values(),
+        sell_data = d3.set(data.map(function( item ) { return item.sell; } )).values();
+
+        var xScale = d3.scale.ordinal()
+        .domain(x_elements)
+        .rangeBands([0, x_elements.length * itemSize]);
+
+      var xAxis = d3.svg.axis()
+        .scale(xScale)
+        .tickFormat(function (d) {
+            return d;
+        })
+        .orient("top");
+
         function(error, data) {
-          var colorScale = d3.scale.quantile()
+          var colorScale = d3.scaleQuantile()
             .domain([0, buckets - 1, d3.max(data, function (d) { return d.value; })]) // Might want to take a logarithm or other scale?
-            .range(colors);
+            .range(bucket_colors);
 
-          var arbitrages = svg.selectAll(".buy")
+          var arbitrages = svg.selectAll('rect')
+            .data(data, function(d) {return d.buy+':'+d.sell;});
 
-          arbitrages.enter().append("rect")
+          arbitrages.append("title");
+
+          arbitrages.enter().append('rect')
             .attr("x", function(d) { return (d.hour - 1) * gridSize; })
             .attr("y", function(d) { return (d.day - 1) * gridSize; })
             .attr("width", gridSize)
             .attr("height", gridSize)
             // .style("fill", colors[0]); have it filled from the start?
+
+          arbitrages.select("title").text(function(d) { return d.value; });
+
 
           arbitrages.exit().remove();
 
@@ -94,7 +118,22 @@
               .attr("class", "legend");
 
           legend.exit().remove();
+        }
+      );
 
+      heatmapChart(data_set);
+
+      var datasetpicker = d3.select("#dataset-picker").selectAll(".dataset-button")
+        .data(data_set);
+
+      datasetpicker.enter()
+        .append("input")
+        .attr("value", function(d){ return "Dataset " + d })
+        .attr("type", "button")
+        .attr("class", "dataset-button")
+        .on("click", function(d) {
+          heatmapChart(d);
+        });
 
       // function render(data, color){
       //   // Bind data

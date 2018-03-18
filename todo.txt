@@ -1,0 +1,10 @@
+Fix positioning
+Fix size
+Show something on hover (value of arbitrage)
+Only write first several characters of exchange (rest maybe on hover)
+Slider to change date (and therefore the data set used)
+Create data sets in python using csv files? Or JSON might be easier. JSON accessing sounds easier and doesn't require much memory probably.
+Fix negative values scaling (domain?)
+merge into rest of their shit
+Show best arbitrage rate by enlarging that cell
+Have N/A (grey?) cell for buying/selling to same exchange as default
