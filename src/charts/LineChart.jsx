@@ -178,7 +178,6 @@ var LineChart=React.createClass({
     /*Initialize "render" and define specific characteristics of the SVG previous to rendering*/
     render:function(){
         let {crypto} = this.props
-        console.log(crypto)
 
         /*Dummy Data -> Must be improved to use data depending on crypto selection*/
         if (crypto == 'Bitcoin') {   
@@ -345,6 +344,82 @@ var LineChart=React.createClass({
                 {day:'02-30-2018',price:928},
                 {day:'03-15-2018',price:594}
             ];
+        } else if(crypto == "BitcoinCash"){
+            var data=[
+                {day:'09-20-2014',price:0.0022},
+                {day:'01-15-2017',price:0.0029},
+                {day:'05-15-2017',price:0.086},
+                //{day:'07-15-2017',price:176},
+                //{day:'07-30-2017',price:198},
+                {day:'09-15-2017',price:0.012},
+                {day:'12-15-2017',price:0.26},
+                {day:'12-30-2017',price:0.875},
+                {day:'01-15-2018',price:0.44},
+                {day:'02-01-2018',price:0.62},
+                {day:'02-15-2018',price:0.33},
+                {day:'02-28-2018',price:0.44},
+                {day:'03-15-2018',price:0.22},
+            ];
+        } else if(crypto == "Cardano"){
+            var data=[
+                {day:'09-14-2014',price:1.87},
+                {day:'08-01-2016',price:2.20},
+                {day:'01-15-2017',price:12.23},
+                {day:'05-01-2017',price:46},
+                //{day:'07-15-2017',price:176},
+                //{day:'07-30-2017',price:198},
+                {day:'07-15-2017',price:44},
+                {day:'08-30-2017',price:134},
+                {day:'10-01-2017',price:86},
+                {day:'10-21-2017',price:483},
+                {day:'11-15-2017',price:329},
+                {day:'12-01-2017',price:542.33},
+                {day:'01-15-2018',price:211},
+                {day:'02-01-2018',price:364},
+                {day:'03-15-2018',price:214}
+            ];
+        } else if(crypto == "NEM"){
+            var data=[
+                {day:'03-05-2017',price:1.64},
+                {day:'06-10-2017',price:0.54},
+                {day:'07-15-2017',price:1.65},
+                {day:'08-01-2017',price:4.75},
+                //{day:'07-15-2017',price:176},
+                //{day:'07-30-2017',price:198},
+                {day:'08-15-2017',price:3.80},
+                {day:'09-01-2017',price:8.50},
+                {day:'09-15-2017',price:8.13},
+                {day:'10-01-2017',price:11.13},
+                {day:'10-15-2017',price:8.25},
+                {day:'11-01-2017',price:11.71},
+                {day:'11-15-2017',price:9.59},
+                {day:'12-01-2017',price:18.13},
+                {day:'12-15-2017',price:11.07},
+                {day:'01-01-2018',price:18.18},
+                {day:'01-15-2018',price:15.20},
+                {day:'02-01-2018',price:6.99},
+                {day:'02-15-2018',price:10.23},
+                {day:'03-15-2018',price:5.07}
+            ];
+        } else if(crypto == "IOTA"){
+            var data=[
+                {day:'05-06-2016',price:11},
+                {day:'03-26-2017',price:50.44},
+                {day:'05-23-2017',price:360.23},
+                {day:'07-01-2017',price:259},
+                //{day:'07-15-2017',price:176},
+                //{day:'07-30-2017',price:198},
+                {day:'08-02-2017',price:363},
+                {day:'09-5-2017',price:288},
+                {day:'10-15-2017',price:293},
+                {day:'11-10-2017',price:488},
+                {day:'12-01-2017',price:440},
+                {day:'12-28-2017',price:702},
+                {day:'01-15-2018',price:1517},
+                {day:'02-08-2018',price:827},
+                {day:'02-30-2018',price:928},
+                {day:'03-15-2018',price:594}
+            ];
         }
 
         /*Define borders of SVG*/
@@ -355,7 +430,6 @@ var LineChart=React.createClass({
         /*Transform Epoch date to specific time format*/
 
         var parseDate = d3.time.format("%m-%d-%Y").parse;
-
         data.forEach(function (d) {
             d.date = parseDate(d.day);
         });
@@ -412,7 +486,6 @@ var LineChart=React.createClass({
             
         /*Position line SVG away from margins (useful for adding axes)*/ 
         var transform='translate(' + margin.left + ',' + margin.top + ')';
- 
         /*Return the complete graph*/ 
         return (
             <div>

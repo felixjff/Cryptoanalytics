@@ -1,134 +1,149 @@
-dataset = {
-    "date": "2018-03-08",
-    "children": [{"Currency":"Bitcoin","MarketCap":168241000000},
-        {"Currency":"Ethereum","MarketCap":73788400000},
-        {"Currency":"Ripple","MarketCap":34108000000},
-        {"Currency":"Litecoin","MarketCap":10311600000},
-        {"Currency":"NEO","MarketCap":6534770000},
-        {"Currency":"Stellar","MarketCap":6091740000},
-        {"Currency":"Monero","MarketCap":5342310000},
-        {"Currency":"EOS","MarketCap":4651410000},
-        {"Currency":"Dash","MarketCap":4059470000}]
-};
-// set color scheme and bubble chart size
-var diameter = 400;
-var color = d3version4.scaleOrdinal(d3version4.schemeCategory20);
 
-// set bubble parameters
-var bubble = d3version4.pack(dataset)
-    .size([diameter - 100, diameter]) // should be equal to svg w and h
-    .padding(3);
+        dataset1 = {
+            "country": "world",
+            "children": [{"Currency":"Bitcoin","value":168241000000,"Number":"168.2 Billion", "Icon": "Bitcoin.png"},
+                {"Currency":"Cardano","value":4699903785,"Number":"4.7 Billion", "Icon": "Cardano.png"},
+                {"Currency":"Monero","value":3367267341,"Number":"3.3 Billion", "Icon": "Monero.svg"},
+                {"Currency":"BitcoinCash","value":15698773065,"Number":"15.7 Billion","Icon": "BitcoinCash.svg"},
+                {"Currency":"Ethereum","value":73788400000,"Number":"73.8 Billion", "Icon": "Ethereum.png"},
+                {"Currency":"TRON","value":1946731656,"Number":"2.0 Billion", "Icon": "TRON.SVG"},
+                {"Currency":"NEM","value":3150684000,"Number":"3.1 Billion", "Icon": "NEM.png"},
+                {"Currency":"Ripple","value":34108000000,"Number":"34.1 Billion", "Icon": "Ripple.png"},
+                {"Currency":"Litecoin","value":10311600000,"Number":"10.3 Billion", "Icon": "Litecoin.svg"},
+                {"Currency":"NEO","value":6534770000,"Number":"6.5 Billion", "Icon": "NEO.svg"},
+                {"Currency":"Stellar","value":6091740000,"Number":"6.1 Billion", "Icon": "Stellar.svg"},
+                {"Currency":"IOTA","value":5342310000,"Number":"5.3 Billion", "Icon": "IOTA.png"},
+                {"Currency":"EOS","value":4651410000,"Number":"4.7 Billion", "Icon": "EOS.png"},
+                {"Currency":"Dash","value":4059470000,"Number":"4.1 Billion", "Icon": "Dash.png"}]
+        };
 
-// set svg parameters
-var svg = d3version4.select('#bubblechart')
-    .append("svg")
-    .attr("width", diameter - 100)
-    .attr("height", diameter)
-    .attr("class", "bubble");
+        dataset2 = {
+            "country": "usa",
+            "children": [{"Currency":"Bitcoin","value":16824100000,"Number":"16.82 Billion", "Icon": "Bitcoin.png"},
+                {"Currency":"Ethereum","value":7378840000,"Number":"7.4 Billion", "Icon": "Ethereum.png"},
+                {"Currency":"Ripple","value":3410800000,"Number":"3.4 Billion", "Icon": "Ripple.png"},
+                {"Currency":"Monero","value":336726734,"Number":"0.33 Billion", "Icon": "Monero.svg"},
+                {"Currency":"Litecoin","value":1031160000,"Number":"1.1 Billion", "Icon": "Litecoin.svg"},
+                {"Currency":"TRON","value":194673165,"Number":"0.15 Billion", "Icon": "TRON.SVG"},
+                {"Currency":"NEM","value":315068400,"Number":"0.3 Billion", "Icon": "NEM.png"},
+                {"Currency":"NEO","value":653477000,"Number":"0.65 Billion", "Icon": "NEO.svg"},
+                {"Currency":"Stellar","value":609174000,"Number":"0.61 Billion", "Icon": "Stellar.svg"},
+                {"Currency":"Monero","value":534231000,"Number":"0.53 Billion", "Icon": "Monero.svg"},
+                {"Currency":"EOS","value":465141000,"Number":"0.46 Billion", "Icon": "EOS.png"},
+                {"Currency":"Dash","value":405947000,"Number":"0.41 Billion", "Icon": "Dash.png"}]
+        };
 
-// set nodes size correlated with dataset.cap
-var nodes = d3version4.hierarchy(dataset)
-    .sum(function(d) { return d.MarketCap; });
+        dataset3 = {
+            "country": "china",
+            "children": [{"Currency":"Bitcoin","value":16424100000,"Number":"16.4 Billion", "Icon": "Bitcoin.png"},
+                {"Currency":"Ethereum","value":7678840000,"Number":"7.67 Billion", "Icon": "Ethereum.png"},
+                {"Currency":"Cardano","value":469990378,"Number":"0.48 Billion", "Icon": "Cardano.png"},
+                {"Currency":"BitcoinCash","value":1569877306,"Number":"1.57 Billion", "Icon": "BitcoinCash.svg"},
+                {"Currency":"Ripple","value":3110800000,"Number":"3.11 Billion", "Icon": "Ripple.png"},
+                {"Currency":"Litecoin","value":1931160000,"Number":"1.93 Billion", "Icon": "Litecoin.svg"},
+                {"Currency":"NEO","value":613477000,"Number":"0.61 Billion", "Icon": "NEO.svg"},
+                {"Currency":"Stellar","value":709174000,"Number":"0.71 Billion", "Icon": "Stellar.svg"},
+                {"Currency":"Monero","value":934231000,"Number":"0.93 Billion", "Icon": "Monero.svg"},
+                {"Currency":"EOS","value":565141000,"Number":"0.56 Billion", "Icon": "EOS.png"},
+                {"Currency":"Dash","value":485947000,"Number":"0.486 Billion", "Icon": "Dash.png"}]
+        };
 
-// append node on svg, bind the data from children class
-var node = svg.selectAll(".node")
-    .data(bubble(nodes).descendants())
-    .enter()
-    .filter(function(d){return  !d.children })
-    .append("g")
-    .attr("class", "node")
-    .attr("transform", function(d) {
-        return "translate(" + d.x + "," + d.y + ")";
-    });
 
-node.append("circle")
-    .attr("r", function(d) {
-        return d.r;
-    })
-    .style("fill", function(d,i) {
-        return color(i);
-    });
+        // set color scheme and bubble chart size
+        var diameter = 500;
+        var width = 400;
+        var height = 380;
+        var color = d3version4.scaleOrdinal(d3version4.schemeCategory20);
 
-node.append("text")
-    .attr("dy", ".2em")
-    .style("text-anchor", "middle")
-    .text(function(d) {
-        return d.data.Currency.substring(0, d.r / 3);
-    })
-    .attr("font-family", "sans-serif")
-    .attr("font-size", function(d){
-        return d.r/5;
-    })
-    .attr("fill", "white");
+        // set bubble parameters
+        var bubble = d3version4.pack(dataset1)
+            .size([width, height]) // should be equal to svg w and h
+            .padding(3);
 
-// append market cap data as text, optional
-//node.append("text")
- //   .attr("dy", "1.3em")
- //   .style("text-anchor", "middle")
- //   .text(function(d) {
- //       return d.data.MarketCap;
- //   })
- //   .attr("font-family",  "Gill Sans", "Gill Sans MT")
- //   .attr("font-size", function(d){
- //       return d.r/6;
- //   })
- //   .attr("fill", "white");
+        var tooltip = d3version4.select("#bubblechart")
+                        .append("div")
+                        //.style("position", "absolute")
+                        .style("z-index", "10")
+                        .style("visibility", "hidden")
+                        .style("color", "white")
+                        .style("padding", "8px")
+                        .style("background-color", "rgba(0, 0, 0, 0.75)")
+                        .style("border-radius", "6px")
+                        .style("font", "12px sans-serif")
+                        .text("tooltip");
 
- d3version4.select(self.frameElement)
-    .style("height", diameter + "px");
+        // set svg parameters
+        var svg = d3version4.select("#bubblechart")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("class", "bubble");
 
-// add slider
-var margin = {top:50, right:50, bottom:0, left:50},
-    width = 500 - margin.left - margin.right;
-    height = diameter;
+        var defs = svg.append("defs"); 
 
-var formatDate = d3version4.timeFormat("%d");
+        // set nodes size correlated with dataset.cap
+        var nodes = d3version4.hierarchy(dataset1)
+            .sum(function(d) { return d.value; });
 
-var startDate = new Date("2017-03-09"),
-    endDate = new Date("2017-03-27");
+        // append node on svg, bind the data from children class
+        var node = svg.selectAll(".node")
+            .data(bubble(nodes).descendants())
+            .enter()
+            .filter(function(d){return  !d.children })
+            .append("g")
+            .attr("class", "node")
+            .attr("transform", function(d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+        // append fill patterns to each node, assign ID according to the node currency name.
+        defs.selectAll(".currency-pattern")
+            .data(bubble(nodes).descendants())
+            .enter().append("pattern")
+            .attr("class", "currency-pattern")
+            .attr("id", function(d){
+                return d.data.Currency;
+            })
+            .attr("height","100%")
+            .attr("width","100%")
+            .attr("patternUnits", "objectBoundingBox")
+            .append("image")
+              .attr("height", function(d) { return d.r * 2; })
+              .attr("width", function(d) { return d.r * 2; })
+              .attr("xlink:href", function(d){
+                 return '/static/'+d.data.Icon;
+              });
+        // add the circle to each node.
+        node.append("circle")
+            .attr("r", function(d) { return d.r; })
+            .on("click", function(d) {
+                var name = d.data.Currency;
+                return name; }) // pass a variable and its value to line chart.
+            .on("mouseover", function(d) {
+              tooltip.text(d.data.Currency + ": " + d.data.Number);
+              tooltip.style("visibility", "visible");
+            })
+            .on("mousemove", function() { 
+              return tooltip.style("top", (d3version4.event.pageY-10)+"px").style("left",(d3version4.event.pageX+10)+"px");
+            })
+            .on("mouseout", function(){return tooltip.style("visibility", "hidden");
+            })
+            .attr("fill", function(d) { return "url(#" + d.data.Currency + ")"; });
+        // add text to each node, optional, conflict with image.
+        //node.append("text")
+            //.attr("dy", ".2em")
+            //.style("text-anchor", "middle")
+            //.text(function(d) {
+                //return d.data.Currency.substring(0, d.r / 3);
+            //})
+            //.attr("font-family", "sans-serif")
+            //.attr("font-size", function(d){
+                //return d.r/5;
+            //})
+            //.attr("fill", "white");
 
-var x = d3version4.scaleTime()
-            .domain([startDate, endDate])
-            .range([0, width])
-            .clamp(true);
+        d3version4.select(self.frameElement)
+            .style("height", diameter + "px");
 
-var slider = svg.append("g")
-                .attr("class", "slider")
-                .attr("transform", "translate(" + margin.left + "," + height/5 + ")");
+        // When the user click map, the bubble updates according to the country clicked.
 
-slider.append("line")
-        .attr("class", "track")
-        .attr("x1", x.range()[0])
-        .attr("x2", x.range()[1])
-          .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-        .attr("class", "track-inset")
-          .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-        .attr("class", "track-overlay")
-        .call(d3version4.drag()
-        .on("start.interrupt", function() { slider.interrupt(); })
-        .on("start drag", function() {currentValue = d3version4.event.x;
-                              update(x.invert(currentValue)); 
-                    })
-                    );
-
-slider.insert("g", ".track-overlay")
-        .attr("class", "ticks")
-        .attr("transform", "translate(0," + 18 + ")")
-          .selectAll("text")
-        .data(x.ticks(10))
-        .enter()
-        .append("text")
-        .attr("x", x)
-        .attr("y", height-150)
-        .attr("text-anchor", "middle")
-        .text(function(d) { return formatDate(d); });
-
-var label = slider.append("text")  
-                .attr("class", "label")
-                .attr("text-anchor", "middle")
-                .text(formatDate(startDate))
-                .attr("transform", "translate(0," + (-25) + ")")
-                
-var handle = slider.insert("circle", ".track-overlay")
-                    .attr("class", "handle")
-                    .attr("r", 9);
+        // TBD

@@ -7,7 +7,6 @@ var PriceHistory = React.createClass({
     },
     render:function(){
         let {data, crypto} = this.props;
-        console.log(crypto)
         return (
             <div>
                 <h3>Price History of {crypto}</h3>
@@ -26,18 +25,5 @@ var PriceHistory = React.createClass({
 
 node.on("click", function (d) {
         var crypto = d.data.Currency;
- 
-        //if (crypto == 'Bitcoin') {
-            /*$.getJSON("data/bitcoin_price.json", function (data) {
-                var arrItems = [];      // THE ARRAY TO STORE JSON ITEMS.
-        
-                $.each(data, function (index, value) {
-                    arrItems.push(value);       // PUSH THE VALUES INSIDE THE ARRAY.
-                });
-                ReactDOM.render(<PriceHistory data = {arrItems}/>,document.getElementById("line-chart"));
-            });   */ 
-        //    ReactDOM.render(<PriceHistory crypto = {crypto}/>,document.getElementById("line-chart"));       
-        //} else if (crypto == 'Ethereum'){
             ReactDOM.render(<PriceHistory crypto = {crypto}/>,document.getElementById("line-chart"));
-        //}
     })
