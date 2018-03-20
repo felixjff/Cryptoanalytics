@@ -1,5 +1,4 @@
 
-
         dataset1 = {
             "country": "world",
             "children": [{"Currency":"Bitcoin","value":168241000000,"Number":"168.2 Billion", "Icon": "Bitcoin.png"},
@@ -116,7 +115,6 @@
         // add the circle to each node.
         node.append("circle")
             .attr("r", function(d) { return d.r; })
-            .attr("fill", function(d) { return "url(#" + d.data.Currency + ")"; })
             .on("click", function(d) {
                 var name = d.data.Currency;
                 return name; }) // pass a variable and its value to line chart.
@@ -128,19 +126,8 @@
               return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
             })
             .on("mouseout", function(){return tooltip.style("visibility", "hidden");
-            });
-        // add text to each node, optional, conflict with image.
-        //node.append("text")
-            //.attr("dy", ".2em")
-            //.style("text-anchor", "middle")
-            //.text(function(d) {
-                //return d.data.Currency.substring(0, d.r / 3);
-            //})
-            //.attr("font-family", "sans-serif")
-            //.attr("font-size", function(d){
-                //return d.r/5;
-            //})
-            //.attr("fill", "white");
+            })
+            .attr("fill", function(d) { return "url(#" + d.data.Currency + ")"; });
 
         d3.select(self.frameElement)
             .style("height", diameter + "px");
