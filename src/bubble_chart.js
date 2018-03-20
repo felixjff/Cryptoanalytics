@@ -147,22 +147,4 @@
 
         // When the user click map, the bubble updates according to the country clicked.
 
-        var buttons = d3.select("body")
-                        .append("div")
-                        .attr("clasee", "countries-button")
-                        .selectAll("div")
-                        .data(dataset1.country)
-                        .enter()
-                        .append("button")
-                        .text(function(d){
-                            return d;
-                        });
-
-            buttons.on("click", function(d){
-                    d3.select(node)
-                        .transition()
-                        .duration(500)
-                        .style("background", "lightBlue");
-
-                    update(d);
-                    })
+        // TBD
