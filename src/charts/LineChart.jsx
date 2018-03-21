@@ -420,7 +420,26 @@ var LineChart=React.createClass({
                 {day:'02-30-2018',price:928},
                 {day:'03-15-2018',price:594}
             ];
-        }
+        } else if(crypto == "TRON"){
+            var data=[
+                {day:'05-06-2016',price:11},
+                {day:'03-26-2017',price:50.44},
+                {day:'05-23-2017',price:360.23},
+                {day:'07-01-2017',price:259},
+                //{day:'07-15-2017',price:176},
+                //{day:'07-30-2017',price:198},
+                {day:'08-02-2017',price:363},
+                {day:'09-5-2017',price:288},
+                {day:'10-15-2017',price:293},
+                {day:'11-10-2017',price:488},
+                {day:'12-01-2017',price:440},
+                {day:'12-28-2017',price:702},
+                {day:'01-15-2018',price:1517},
+                {day:'02-08-2018',price:827},
+                {day:'02-30-2018',price:928},
+                {day:'03-15-2018',price:594}
+            ];
+        };
 
         /*Define borders of SVG*/
         var margin = {top: 5, right: 50, bottom: 20, left: 50},

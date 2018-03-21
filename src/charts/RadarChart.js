@@ -2,7 +2,7 @@
 /////////////// The Radar Chart  ////////////////
 /////////////////////////////////////////////////
 	
-function RadarChart(id, data, options) {
+function RadarChart(id, data, options, brokers) {
 	var cfg = {
 	 w: 600,				//Width of the circle
 	 h: 600,				//Height of the circle
@@ -20,15 +20,17 @@ function RadarChart(id, data, options) {
 	};
 	
 	//Put all of the options into a variable called cfg
-	if('undefined' !== typeof options){
-	  for(var i in options){
-		if('undefined' !== typeof options[i]){ cfg[i] = options[i]; }
+	if ('undefined' !== typeof options) {
+	  for (var i in options) {
+		if ('undefined' !== typeof options[i]){ cfg[i] = options[i]; }
 	  }//for i
 	}//if
 	
 	//If the supplied maxValue is smaller than the actual one, replace by the max in the data
-	var maxValue = Math.max(cfg.maxValue, d3.max(data, function(i){return d3.max(i.map(function(o){return o.value;}))}));
-		
+//	var maxValue = Math.max(cfg.maxValue, d3.max(data, function(i){return d3.max(i.map(function(o){return o.value;}))}));
+	
+	var maxValue = 1.1;
+	
 	var allAxis = (data[0].map(function(i, j){return i.axis})),	//Names of each axis
 		total = allAxis.length,					//The number of different axes
 		radius = Math.min(cfg.w/2, cfg.h/2), 	//Radius of the outermost circle
@@ -38,7 +40,7 @@ function RadarChart(id, data, options) {
 	//Scale for the radius
 	var rScale = d3.scale.linear()
 		.range([0, radius])
-		.domain([0, maxValue]);
+		.domain([0, 1.1]);
 		
 	/////////////////////////////////////////////////////////
 	//////////// Create the container SVG and g /////////////
@@ -52,6 +54,7 @@ function RadarChart(id, data, options) {
 			.attr("width",  cfg.w + cfg.margin.left + cfg.margin.right)
 			.attr("height", cfg.h + cfg.margin.top + cfg.margin.bottom)
 			.attr("class", "radar"+id);
+	
 	//Append a g element		
 	var g = svg.append("g")
 			.attr("transform", "translate(" + (cfg.w/2 + cfg.margin.left) + "," + (cfg.h/2 + cfg.margin.top) + ")");
@@ -108,6 +111,7 @@ function RadarChart(id, data, options) {
 		.enter()
 		.append("g")
 		.attr("class", "axis");
+	
 	//Append the lines
 	axis.append("line")
 		.attr("x1", 0)
@@ -254,7 +258,7 @@ function RadarChart(id, data, options) {
 
 		//Create text next to squares
 		legend.selectAll('text')
-		  .data(['CryptoSales','YourBroker', 'Kraken'])
+		  .data(brokers)
 		  .enter()
 		  .append("text")
 		  .attr("x", cfg.w - 52)
