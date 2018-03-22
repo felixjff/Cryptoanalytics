@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <head>
+    <style>
+      rect.bordered {
+        stroke: #E6E6E6;
+        stroke-width:2px;   
+      }
+
+      text.mono {
+        font-size: 12pt;
+        font-family: Consolas, courier;
+        fill: #58aee2;
+        font-weight: 600;
+      }
+
+      .ticks {
+        font: 10px sans-serif;
+      }
+
+      .track,
+      .track-inset,
+      .track-overlay {
+        stroke-linecap: round;
+      }
+
+      .track {
+        stroke: #000;
+        stroke-opacity: 0.3;
+        stroke-width: 10px;
+      }
+
+      .track-inset {
+        stroke: #ddd;
+        stroke-width: 8px;
+      }
+
+      .track-overlay {
+        pointer-events: stroke;
+        stroke-width: 50px;
+        stroke: transparent;
+        cursor: crosshair;
+      }
+
+      .handle {
+        fill: #fff;
+        stroke: #000;
+        stroke-opacity: 0.5;
+        stroke-width: 1.25px;
+      }
+    </style>
+    <title>Heatmap of arbitrage points</title>
+    <script src="d3/d3.js"></script> 
+    <script type="text/javascript" src="../../node_modules/jquery/dist/jquery.js"></script>
+  </head>
+  <body>
+    <div id="chart"></div>
+    <div id="timeline"></div>
+    <!-- Have separate area for changing exchanges? -->
+    </div>
+    <script type="text/javascript">
+      var cells_wide = 5,
+          cells_high = 5,
+          legend_scale = 1
+          margin = { top: 150, right: 0, bottom: 100, left: 250 },
+          width = 960 - margin.left - margin.right,
+          height = 960 - margin.top - margin.bottom,
+          gridSize = Math.floor((width - margin.left - margin.right) / cells_wide),
+          legendElementWidth = gridSize*legend_scale,
+          buckets = 7,
+          bucket_colors = ['#b2d4e7','#a6bddb','#96a8cf','#8592c3','#737eb8','#626aac','#4e57a1'],
+          exchanges_buy = ["GDAX", "BitStamp", "Kraken", "itBit", "CoinsBank", "CEX.IO", "WEX", "LakeBTC.com", "BTC-Alpha", "LocalBitcoins"],
+          exchanges_sell = ["GDAX", "BitStamp", "Kraken", "itBit", "CoinsBank", "CEX.IO", "WEX", "LakeBTC.com", "BTC-Alpha", "LocalBitcoins"],
+          // exchanges_buy = ["bitboy1", "bittyguy2", "big_buyer3", "exchanging_big4", "bitconnect5"]
+          // exchanges_sell = ["bitboy1", "bittyguy2", "big_buy3", "xchngr4", "bcnnct5"]
+          datasets = ["test_data.csv"],
+          data_set = "heatmap_data_visualization.json",
+          //Starting timestamp: 2018-03-15 00:00:00 unix timestamp: 1521072000
+          unix_start = 1521072000,
+          start_date = new Date("2018-03-15"),
+          //Ending timestamp: 2018-03-19 15:58:12 unix timestamp: 1521475092
+          unix_end = 1521475092,
+          end_date = new Date("2018-03-19"),
+          unix_timestamp = "1521090560",
+          // For unix conversion, https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript was used
+          used_values = [0,1,4,5,6];
+
+          function unix_conversion(unix_time) {
+            var date = new Date(unix_time*1000);
+            var hours = date.getHours();
+            var minutes = "0" + date.getMinutes();
+            var seconds = "0" + date.getSeconds();
+            return formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+          }
+
+          // var json   = '{"result":true, "count":42}';
+          // obj = JSON.parse(json);
+
+          // var json_dict = {};
+          // $.getJSON("heatmap_data_visualization.json", function(json) {
+          //   json_dict = json;
+          // });
+
+          // var 
+          // console.log(used_values)
+          // var used_timestamp = "1521072070";
+          // console.log(json_dict[used_timestamp]);
+            
+          // var data;
+          // d3.json(data_set, function(error, json) {
+          //   if(error) return console.warn(error);
+          //   data = json;
+
+          // });
+
+          
+          // console.log(data)
+
+
+      var svg = d3.select("#chart").append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      exchanges_sell_filtered = []
+      exchanges_buy_filtered = []
+      for(i = 0; i < 5; i++) {
+        exchanges_buy_filtered.push(exchanges_buy[used_values[i]])
+        exchanges_sell_filtered.push(exchanges_sell[used_values[i]])
+      }
+
+      var sellLabels = svg.selectAll(".sellLabel")
+          .data(exchanges_sell_filtered)
+          .enter().append("text")
+            .text(function (d) { return d; })
+            .attr("x", 0)
+            .attr("y", function (d, i) { return i * gridSize; })
+            .style("text-anchor", "end")
+            .attr("transform", "translate(-100," + - gridSize / 2 + ")")
+            .attr("class", "mono axis");
+
+      var buyLabels = svg.selectAll(".buyLabel")
+          .data(exchanges_buy_filtered)
+          .enter().append("text")
+            .text(function(d) { return d; })
+            .attr("x", function(d, i) { return i * gridSize; })
+            .attr("y", -10)
+            .style("text-anchor", "middle")
+            .attr("transform", "translate(" + - gridSize / 2 + "," + -gridSize*1.2 + ")")
+            .attr("class", "mono axis");
+
+      var heatmapChart = function(unix_timestamp, used_values) {
+        d3.json(data_set, function(error, json) {
+          if(error) return console.warn(error);
+          used_data = json[unix_timestamp];
+            
+          var data = []
+          for (i = 0; i < 5; i++) {
+            for (j = 0; j < 5; j++) {
+              data.push({buy:j, sell:i, value:used_data[i] - used_data[j]})
+            }
+          }
+          data.forEach(function(d) {
+            d.buy = +d.buy;
+            d.sell = +d.sell;
+            d.value = +d.value;
+          });
+
+        used_data_filtered = []
+        for(i = 0; i < 5; i++) {
+          used_data_filtered.push(used_data[used_values[i]])
+        }
+
+        var sellLabels_value = svg.selectAll(".sellLabelValue")
+          .data(used_data_filtered)
+          .enter().append("text")
+            .text(function (d) { return Math.round(d*100)/100; })
+            .attr("x", 0)
+            .attr("y", function (d, i) { return i * gridSize +20; })
+            .style("text-anchor", "end")
+            .attr("transform", "translate(-100," + - gridSize / 2 + ")")
+            .attr("class", "mono axis");            
+
+        var buyLabels = svg.selectAll(".buyLabelValue")
+          .data(used_data_filtered)
+          .enter().append("text")
+            .text(function (d) { return Math.round(d*100)/100; })
+            .attr("x", function(d, i) { return i * gridSize; })
+            .attr("y", 10)
+            .style("text-anchor", "middle")
+            .attr("transform", "translate(" + - gridSize / 2 + "," + -gridSize*1.2 + ")")
+            .attr("class", "mono axis");          
+
+          var colorScale = d3.scaleQuantile()
+              .domain([d3.min(data, function (d) { return d.value; }), d3.max(data, function (d) { return d.value; })])
+              .range(bucket_colors);
+
+          var customColorScale = function(value) {
+            return !!value ? colorScale(value) : '#696969'
+          }
+
+          var arbitrage_cells = svg.selectAll("cell")
+              .data(data, function(d) {return d.buy+':'+d.sell;});
+
+          arbitrage_cells.exit().remove();
+
+          arbitrage_cells.enter().append("rect")
+              .attr("x", function(d) { return (d.sell - 1) * gridSize; })
+              .attr("y", function(d) { return (d.buy - 1) * gridSize; })
+              .attr("rx", 4)
+              .attr("ry", 4)
+              .attr("class", "cell bordered")
+              .attr("width", gridSize)
+              .attr("height", gridSize)
+              .style("fill", bucket_colors[0])
+
+              .merge(arbitrage_cells)
+                .style("fill", function(d){return customColorScale(d.value)})
+
+              .append("title")
+                .text(function(d) { return d.value });
+
+          arbitrage_cells.select("title").text(function(d) { return d.value; });
+
+          var formatDateIntoYear = d3.timeFormat("%Y");
+          var formatDate = d3.timeFormat("%b %Y");
+
+          var x = d3.scaleTime()
+            .domain([start_date, end_date])
+            .range([0, width/1.5])
+            .clamp(true);
+
+          var slider = svg.append('g')
+              .attr("class", "slider")
+              .attr("transform", "translate(" + -150 + "," + (height+120) / 2 + ")");
+
+          slider.append("line")
+              .attr("class", "track")
+              .attr("x_start", x.range()[0])
+              .attr("x_end", x.range()[1])
+            .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+              .attr("class", "track-inset")
+            .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+              .attr("class", "track-overlay")
+              .call(d3.drag()
+                  .on("start.interrupt", function() { slider.interrupt(); })
+                  .on("start drag", function() { heatmapChart(d3.event.x.getTime(), used_values) }));
+
+          slider.insert("g", ".track-overlay")
+              .attr("class", "ticks")
+              .attr("transform", "translate(0," + 18 + ")")
+            .selectAll("text")
+              .data(x.ticks(10))
+              .enter()
+              .append("text")
+              .attr("x", x)
+              .attr("y", 10)
+              .attr("text-anchor", "middle")
+              .text(function(d) { return formatDateIntoYear(d); });
+
+          var label = slider.append("text")  
+              .attr("class", "label")
+              .attr("text-anchor", "middle")
+              .text(formatDate(start_date))
+              .attr("transform", "translate(0," + (-25) + ")")
+
+          var handle = slider.insert("circle", ".track-overlay")
+              .attr("class", "handle")
+              .attr("r", 9);
+
+          function hue(h) {
+            handle.attr("cx", x(h));
+            label
+              .attr("x", x(h))
+              .text(formatDate(h));
+            svg.style("background-color", d3.hsl(h/1000000000, 0.8, 0.8));
+          }
+
+          var legend = svg.selectAll("legend")
+              .data([colorScale.quantiles()[0]-.01].concat(colorScale.quantiles()), function(d) { return d; })
+              .enter().append("g")
+              .attr("class", "legend");
+          
+          legend.exit().remove();
+
+          legend.append("rect")
+            .attr("x", function(d, i) { return legendElementWidth * i-250; })
+            .attr("y", height-250)
+            .attr("width", legendElementWidth)
+            .attr("height", gridSize / 2)
+            .merge(legend)
+            .style("fill", function(d, i) { return bucket_colors[i]; });
+
+          legend.append("text")
+            .attr("class", "mono")
+            .text(function(d) { if (d >= colorScale.quantiles()[0]) return "≥ " + Math.round(d); else return "≤ " + Math.round(colorScale.quantiles()[0])})
+            .attr("x", function(d, i) { return legendElementWidth * i-250; })
+            .attr("y", height - 275 + gridSize)
+
+        });  
+      };
+
+      heatmapChart(unix_timestamp, used_values);
+      
+      var datasetpicker = d3.select("#dataset-picker").selectAll(".dataset-button")
+        .data(datasets);
+
+      datasetpicker.enter()
+        .append("input")
+        .attr("value", function(d){ return "Dataset " + d })
+        .attr("type", "button")
+        .attr("class", "dataset-button")
+        .on("click", function(d) {
+          heatmapChart(d);
+        });
+
+      function update_data(new_data, unix_timestamp, used_values) {
+        d3.json(data_set, function(error, json) {
+          if(error) return console.warn(error);
+          used_data = json[unix_timestamp];
+            
+          var data = []
+          for (i = 0; i < 5; i++) {
+            for (j = 0; j < 5; j++) {
+              data.push({buy:j, sell:i, value:used_data[j] - used_data[i]})
+            }
+          }
+          data.forEach(function(d) {
+            d.buy = +d.buy;
+            d.sell = +d.sell;
+            d.value = +d.value;
+          });
+
+          // var svg = d3.select("body").transition();
+        //heatmapChart(d);
+        })
+      }
+    </script>
+  </body>
+</html>
